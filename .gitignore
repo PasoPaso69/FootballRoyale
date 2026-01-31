@@ -1,0 +1,6 @@
+/target/
+/.nb-private/
+/nbproject/private/
+build/
+nbdist/
+.mtj.tmp/
