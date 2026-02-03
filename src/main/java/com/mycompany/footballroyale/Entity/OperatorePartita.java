@@ -11,4 +11,12 @@ public class OperatorePartita extends Utente {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+    
+    @Override
+public String toString() {
+    return "OperatorePartita{" +
+            super.toString() + // Richiama Nome, Cognome, Email dalla classe Utente
+            ", password='****'" + // Oscuriamo la password per motivi di sicurezza
+            '}';
+}
 }

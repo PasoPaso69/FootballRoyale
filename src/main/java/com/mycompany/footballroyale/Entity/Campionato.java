@@ -9,9 +9,19 @@ public class Campionato extends Competizione {
     private int numeroGiornate;
 
     public Campionato() { super(); }
+    
 
     public int getAnno() { return anno; }
     public void setAnno(int anno) { this.anno = anno; }
     public int getNumeroGiornate() { return numeroGiornate; }
     public void setNumeroGiornate(int numeroGiornate) { this.numeroGiornate = numeroGiornate; }
+    
+    @Override
+public String toString() {
+    return "Campionato{" +
+            super.toString() + // Recupera Nome, Stato, DataInizio dalla superclasse
+            ", anno=" + anno +
+            ", numeroGiornate=" + numeroGiornate +
+            '}';
+}
 }

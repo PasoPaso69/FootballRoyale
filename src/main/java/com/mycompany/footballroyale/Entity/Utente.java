@@ -6,6 +6,7 @@ package com.mycompany.footballroyale.Entity;
 import java.util.Date;
 
 public abstract class Utente {
+    private String Id;
     private String nome;
     private String cognome;
     private String codiceFiscale;
@@ -14,7 +15,10 @@ public abstract class Utente {
     private String email;
 
     public Utente() {}
-
+    
+    public String getId() { return Id; }
+    public void setId(String Id) { this.Id = Id; }
+    
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
 
@@ -32,4 +36,13 @@ public abstract class Utente {
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    
+    @Override
+public String toString() {
+    return "Id='" + Id + '\'' +
+           ", nome='" + nome + '\'' +
+           ", cognome='" + cognome + '\'' +
+           ", codiceFiscale='" + codiceFiscale + '\'' +
+           ", email='" + email + '\'';
+}
 }

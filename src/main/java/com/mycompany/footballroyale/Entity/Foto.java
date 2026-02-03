@@ -26,4 +26,14 @@ public class Foto {
 
     public String getExstension() { return extension; }
     public void setDescrizione(String extension) { this.extension = extension; }
+    
+    @Override
+public String toString() {
+    return "Foto{" +
+            "Id='" + Id + '\'' +
+            ", fileName='" + fileName + '\'' +
+            ", extension='" + extension + '\'' +
+            ", data=" + (data != null ? "[Presente]" : "[Vuoto]") +
+            '}';
+}
 }

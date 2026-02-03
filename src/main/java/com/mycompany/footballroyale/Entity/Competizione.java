@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public abstract class Competizione {
+    private String Id;
     private String nome;
     private String stato;
     private Date dataInizio;
@@ -16,6 +17,9 @@ public abstract class Competizione {
 
 
     public Competizione() {}
+    
+    public String getId() { return Id; }
+    public void setId(String Id) { this.Id = Id; }
 
     // Getter e Setter
     public String getNome() { return nome; }
@@ -32,5 +36,12 @@ public abstract class Competizione {
 
     public List<Partita> getCalendario() { return calendario; }
     public void setCalendario(List<Partita> c) { this.calendario = c; }
-
+    
+@Override
+public String toString() {
+    return "nome='" + nome + '\'' +
+           ", stato='" + stato + '\'' +
+           ", dataInizio=" + dataInizio +
+           ", numeroSquadre=" + (squadrePartecipanti != null ? squadrePartecipanti.size() : 0);
+}
 }

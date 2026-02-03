@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Partita {
+    private String Id;
     private Date data;
     private String orario;
     private int punteggioCasa;
@@ -19,6 +20,9 @@ public class Partita {
     private List<EventoGara> eventi;
 
     public Partita() {}
+    
+    public String getId() { return Id; }
+    public void setId(String Id) { this.Id = Id; }
 
     public Date getData() { return data; }
     public void setData(Date data) { this.data = data; }
@@ -43,4 +47,17 @@ public class Partita {
 
     public List<EventoGara> getEventi() { return eventi; }
     public void setEventi(List<EventoGara> e) { this.eventi = e; }
+    
+    @Override
+public String toString() {
+    return "Partita{" +
+            "Id='" + Id + '\'' +
+            ", data=" + data +
+            ", orario='" + orario + '\'' +
+            ", match='" + (squadraCasa != null ? squadraCasa.getNome() : "N/A") + " " + punteggioCasa + 
+            " - " + punteggioOspiti + " " + (squadraOspite != null ? squadraOspite.getNome() : "N/A") + '\'' +
+            ", stato='" + stato + '\'' +
+            ", numeroEventi=" + (eventi != null ? eventi.size() : 0) +
+            '}';
+}
 }

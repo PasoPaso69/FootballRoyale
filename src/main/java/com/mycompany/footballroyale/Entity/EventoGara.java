@@ -5,12 +5,16 @@
 package com.mycompany.footballroyale.Entity;
 
 public class EventoGara {
+    private String Id;
     private int minuto;
     private String tipologia; // Gol, Ammonizione, Espulsione
     
     private Giocatore protagonista; // Il giocatore che ha fatto l'evento
 
     public EventoGara() {}
+    
+    public String getId() { return Id; }
+    public void setId(String Id) { this.Id = Id; }
 
     public int getMinuto() { return minuto; }
     public void setMinuto(int minuto) { this.minuto = minuto; }
@@ -20,4 +24,14 @@ public class EventoGara {
 
     public Giocatore getProtagonista() { return protagonista; }
     public void setProtagonista(Giocatore p) { this.protagonista = p; }
+    
+    @Override
+public String toString() {
+    return "EventoGara{" +
+            "Id='" + Id + '\'' +
+            ", minuto=" + minuto +
+            ", tipologia='" + tipologia + '\'' +
+            ", protagonista=" + (protagonista != null ? protagonista.getCognome() + " (" + protagonista.getNumeroMaglia() + ")" : "N/A") +
+            '}';
+}
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Squadra {
+    private String Id;
     private String nome;
     private Foto logo;
     private String dettaglioMagliaCasa;
@@ -16,6 +17,9 @@ public class Squadra {
     private List<Giocatore> giocatori = new ArrayList<>();
 
     public Squadra() {}
+    
+    public String getId() { return Id; }
+    public void setId(String Id) { this.Id = Id; }
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
@@ -31,4 +35,16 @@ public class Squadra {
 
     public List<Giocatore> getGiocatori() { return giocatori; }
     public void setGiocatori(List<Giocatore> g) { this.giocatori = g; }
+    
+    @Override
+public String toString() {
+    return "Squadra{" +
+            "Id='" + Id + '\'' +
+            ", nome='" + nome + '\'' +
+            ", logo=" + (logo != null ? logo.getFileName() : "N/A") +
+            ", magliaCasa='" + dettaglioMagliaCasa + '\'' +
+            ", magliaTrasferta='" + dettaglioMagliaTrasferta + '\'' +
+            ", numeroGiocatori=" + (giocatori != null ? giocatori.size() : 0) +
+            '}';
+}
 }
