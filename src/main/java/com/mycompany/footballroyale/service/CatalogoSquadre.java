@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.footballroyale.domain;
+package com.mycompany.footballroyale.service;
 
 /**
  *
@@ -10,28 +10,20 @@ package com.mycompany.footballroyale.domain;
  */
 
 
-import jakarta.persistence.*;
+import com.mycompany.footballroyale.domain.Foto;
+import com.mycompany.footballroyale.domain.Giocatore;
+import com.mycompany.footballroyale.domain.Squadra;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "catalogo_squadre")
+
 public class CatalogoSquadre {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_catalogo")
-    private String Id;
-
-    // Relazione Uno-a-Molti: Il catalogo contiene molte squadre
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_catalogo")
     private List<Squadra> listaSquadre = new ArrayList<>();
 
     public CatalogoSquadre() {}
     
-    public CatalogoSquadre(String id,List<Squadra> listaSquadre) {
-        this.Id = id;
+    public CatalogoSquadre(List<Squadra> listaSquadre) {
         this.listaSquadre= listaSquadre;
     }
 
@@ -49,23 +41,6 @@ public class CatalogoSquadre {
 
     public List<Squadra> getTutteLeSquadre() {
         return listaSquadre;
-    }
-
-    // Getter e Setter necessari per Hibernate
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        this.Id = id;
-    }
-
-    public List<Squadra> getListaSquadre() {
-        return listaSquadre;
-    }
-
-    public void setListaSquadre(List<Squadra> listaSquadre) {
-        this.listaSquadre = listaSquadre;
     }
 }
 

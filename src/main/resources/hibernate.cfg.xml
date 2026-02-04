@@ -25,6 +25,6 @@
     <mapping class="com.mycompany.footballroyale.domain.Competizione"/>
     <mapping class="com.mycompany.footballroyale.domain.Campionato"/>
     <mapping class="com.mycompany.footballroyale.domain.EventoGara"/>
-    <mapping class="com.mycompany.footballroyale.domain.CatalogoSquadre"/>
+    
     </session-factory>
 </hibernate-configuration>
