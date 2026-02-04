@@ -1,12 +1,29 @@
-
 package com.mycompany.footballroyale.domain;
+
+import jakarta.persistence.*; // Importante per Hibernate 6+
 import java.util.Date;
 
+@Entity
+@Table(name = "giocatori")
+// Collega l'ID di questa tabella a quello della tabella 'utenti'
+@PrimaryKeyJoinColumn(name = "id_utente")
 public class Giocatore extends Utente {
     
+    @Column(name = "numero_maglia")
     private int numeroMaglia;
-    private Foto foto;
+
+    @Column(name = "ruolo", length = 50)
     private String ruolo;
+
+    // Relazione 1-a-1 con Foto (ogni giocatore ha la sua foto profilo)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_foto")
+    private Foto foto;
+
+    // Relazione molti-a-uno: molti giocatori appartengono a una squadra
+    // Il nome "squadra" deve corrispondere a quello usato in mappedBy nella classe Squadra
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_squadra")
     private Squadra squadra;
 
     public Giocatore() { super(); }

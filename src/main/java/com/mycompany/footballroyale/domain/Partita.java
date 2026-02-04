@@ -1,25 +1,56 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.footballroyale.domain;
+
+import jakarta.persistence.*; // Necessario per Hibernate 6+
 import java.util.*;
 
+@Entity
+@Table(name = "partite")
 public class Partita {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID) // Genera automaticamente una stringa univoca
+    @Column(name = "id_partita")
     private String Id;
+
+    @Temporal(TemporalType.DATE) // Specifica che salviamo solo la data
+    @Column(name = "data_gara")
     private Date data;
+
+    @Column(name = "orario")
     private String orario;
+
+    @Column(name = "punteggio_casa")
     private int punteggioCasa;
+
+    @Column(name = "punteggio_ospiti")
     private int punteggioOspiti;
+
+    @Column(name = "stato")
     private String stato;
+
+    // Relazione verso Squadra (Casa)
+    @ManyToOne
+    @JoinColumn(name = "id_squadra_casa")
     private Squadra squadraCasa;
+
+    // Relazione verso Squadra (Ospite)
+    @ManyToOne
+    @JoinColumn(name = "id_squadra_ospite")
     private Squadra squadraOspite;
+
+    // Relazione verso Competizione
+    @ManyToOne
+    @JoinColumn(name = "id_competizione")
     private Competizione competizione;
-    // Relazione con gli eventi
+
+    // Relazione 1 -> * con EventoGara
+    // 'partita' deve essere il nome del campo nella classe EventoGara
+    @OneToMany(mappedBy = "partita", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EventoGara> eventi = new ArrayList<>();
 
     public Partita() {}
     
+  
     public Partita(Date data, String orario, Squadra casa, Squadra ospite, Competizione comp) {
         this.data = data;
         this.orario = orario;

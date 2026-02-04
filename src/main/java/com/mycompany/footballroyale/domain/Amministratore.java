@@ -1,32 +1,49 @@
-
 package com.mycompany.footballroyale.domain;
-import java.util.Date;
 
+import jakarta.persistence.*;
+import java.util.Date;
+import org.mindrot.jbcrypt.BCrypt; // Per la gestione sicura della password
+
+@Entity
+@Table(name = "amministratori")
+@PrimaryKeyJoinColumn(name = "id_utente") // Lega l'ID alla tabella 'utenti'
 public class Amministratore extends Utente {
+
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
 
-    public Amministratore() { super(); }
+    public Amministratore() { 
+        super(); 
+    }
     
-    public Amministratore(String id, String nome, String cognome, String codiceFiscale, 
+    public Amministratore(String id, String nome, String cognome, 
                           Date dataNascita, String cittaDiNascita, String telefono, 
                           String email, String password) {
-        // Passa i dati comuni al costruttore della classe padre (Utente)
         super(id, nome, cognome, dataNascita, cittaDiNascita, telefono, email);
-        // Inizializza il dato specifico dell'Amministratore
         this.password = password;
+    }
+
+    // Hash automatico della password prima del salvataggio su XAMPP
+    @PrePersist
+    @PreUpdate
+    private void hashPassword() {
+        if (this.password != null && !this.password.startsWith("$2a$")) {
+            this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
+        }
     }
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     
     @Override
-public String toString() {
-    return "Amministratore{" +
-            super.toString() + // Chiama il toString di Utente
-            ", password='****'" + // Non mostriamo la password reale per sicurezza
-            '}';
-}
+    public String toString() {
+        return "Amministratore{" +
+                super.toString() + 
+                ", password='****'" + 
+                '}';
+    }
 
+ 
  public void creazioneCampionato() {
         // Implementazione: Chiama il GestoreTorneo
         // Es: GestoreTorneo.getInstance().creaNuovaCompetizione();

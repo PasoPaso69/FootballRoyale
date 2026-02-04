@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/FootballRoyale?serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password"></property>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="show_sql">true</property>
+        
+    <mapping class="com.mycompany.footballroyale.domain.Utente"/>
+    <mapping class="com.mycompany.footballroyale.domain.Amministratore"/>
+    <mapping class="com.mycompany.footballroyale.domain.OperatorePartita"/>
+    <mapping class="com.mycompany.footballroyale.domain.Giocatore"/>
+    <mapping class="com.mycompany.footballroyale.domain.Squadra"/>
+    <mapping class="com.mycompany.footballroyale.domain.Foto"/>
+    <mapping class="com.mycompany.footballroyale.domain.Partita"/>
+    <mapping class="com.mycompany.footballroyale.domain.Competizione"/>
+    <mapping class="com.mycompany.footballroyale.domain.Campionato"/>
+    <mapping class="com.mycompany.footballroyale.domain.EventoGara"/>
+    </session-factory>
+</hibernate-configuration>
