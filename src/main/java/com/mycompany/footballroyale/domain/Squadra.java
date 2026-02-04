@@ -4,6 +4,7 @@ package com.mycompany.footballroyale.domain;
 import jakarta.persistence.*; // Importante per Hibernate 6+
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Entity
 @Table(name = "squadre")
@@ -44,6 +45,18 @@ public class Squadra {
 
     // Costruttore vuoto obbligatorio
     public Squadra() {}
+    
+     public Squadra(String id, String nome,Foto logo, 
+                  String DettaglioMagliaCasa, String DettaglioMagliaTrasferta,int vittorie, int pareggi , int sconfitte) {
+        this.Id = id;
+        this.nome = nome;
+        this.logo = logo;
+        this.dettaglioMagliaCasa = DettaglioMagliaCasa;
+        this.dettaglioMagliaTrasferta = DettaglioMagliaTrasferta;
+        this.vittorie = vittorie;
+        this.pareggi = pareggi;
+        this.sconfitte = sconfitte;
+     }
     
      public String getId() { return Id; }
 

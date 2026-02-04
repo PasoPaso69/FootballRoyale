@@ -2,6 +2,7 @@ package com.mycompany.footballroyale.domain;
 
 import jakarta.persistence.*; // Necessario per Hibernate 6+
 import java.sql.Blob;
+import java.util.Date;
 
 @Entity
 @Table(name = "foto")
@@ -23,6 +24,14 @@ public class Foto {
     private String extension;
 
     public Foto() {}
+    
+        public Foto(String id, Blob data, String fileName, String extension) {
+        this.Id = id;
+        this.data = data;
+        this.fileName = fileName;
+        this.extension = extension;
+
+    }
 
     // Getter e Setter
     public String getId() { return Id; }
