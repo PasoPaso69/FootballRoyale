@@ -116,7 +116,7 @@ public class AlgoritmoDiBerger implements GenerazioneCalendarioStrategy {
                     p.setSquadraOspite(sOspite);
                     p.setData(cal.getTime());
                     //qui manca la relazione
-                    p.setCampetto(campettoScelto);
+                   // p.setCampetto(campettoScelto);
                     
                     calendarioGenerato.add(p);
 
