@@ -38,8 +38,6 @@ public class Squadra {
     @Column(name = "sconfitte", columnDefinition = "int default 0")
     private int sconfitte;
     
-    // Relazione 1 -> * con Giocatore
-    // 'mappedBy' indica il nome del campo "squadra" dentro la classe Giocatore
     @OneToMany(mappedBy = "squadra", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Giocatore> giocatori = new ArrayList<>();
 
@@ -110,6 +108,27 @@ public class Squadra {
 
     public void setGiocatori(List<Giocatore> g) { this.giocatori = g; }
     
+    public double getOverall(){
+        
+     
+    int partiteGiocate = vittorie + pareggi + sconfitte;
+
+        // Caso di default: nessuna partita giocata
+        if (partiteGiocate == 0) {
+            return 50.0;
+        }
+
+        // Calcolo punteggio ottenuto
+        double puntiOttenuti = (vittorie * 3.0) + (pareggi * 1.0);
+        
+        // Calcolo punteggio massimo potenziale
+        double puntiMassimiPossibili = partiteGiocate * 3.0;
+
+        // Calcolo percentuale (0.0 a 1.0) e trasformazione in scala 0-100
+        double overall = (puntiOttenuti / puntiMassimiPossibili) * 100;
+        return overall;
+    }
+    
     public Squadra(String id, String nome, Foto logo, String magliaCasa, String magliaTrasferta) {
         this.Id = id;
         this.nome = nome;
@@ -121,6 +140,4 @@ public class Squadra {
         this.sconfitte = 0;
     }
     
-    // Getter e Setter (lasciali come sono, Hibernate li userà)
-    // ...
 }

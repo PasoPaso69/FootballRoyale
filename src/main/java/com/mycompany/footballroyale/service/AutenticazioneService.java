@@ -9,50 +9,32 @@ package com.mycompany.footballroyale.service;
  * @author 39327
  */  
 
+import com.mycompany.footballroyale.TechnicalService.EntityManager;
 import com.mycompany.footballroyale.domain.*;
-import com.mycompany.footballroyale.util.HibernateUtil;
+import com.mycompany.footballroyale.TechnicalService.HibernateService;
 import org.hibernate.Session;
 import org.mindrot.jbcrypt.BCrypt;
 public class AutenticazioneService {
 
-
-
-
     public Utente login(String email, String passwordInserita) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            
-            // 1. Cerchiamo l'utente per email
-            // Hibernate caricherà automaticamente la sottoclasse corretta (Admin o Operatore)
-            String hql = "FROM Utente u WHERE u.email = :email";
-            Utente utente = session.createQuery(hql, Utente.class)
-                                   .setParameter("email", email)
-                                   .uniqueResult();
+        // 1. Cerchiamo l'utente tramite l'EntityManager
+        Utente utente = EntityManager.getInstance().findByAttribute(Utente.class, "email", email);
 
-            if (utente == null) {
-                System.out.println("Utente non trovato.");
-                return null;
-            }
-
-            // 2. Verifichiamo la password
-            String hashDalDb = "";
-            
-            // Dobbiamo capire se è un Admin o un Operatore per prendere la password
-            if (utente instanceof Amministratore) {
-                hashDalDb = ((Amministratore) utente).getPassword();
-            } else if (utente instanceof OperatorePartita) {
-                hashDalDb = ((OperatorePartita) utente).getPassword();
-            }
-
-            // 3. Confronto sicuro con BCrypt
-            if (BCrypt.checkpw(passwordInserita, hashDalDb)) {
-                return utente; // Login successo!
-            } else {
-                System.out.println("Password errata.");
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (utente == null) {
             return null;
         }
+
+        // 2. Grazie al polimorfismo, chiamiamo getPassword() direttamente!
+        // Hibernate sa già se deve andare a prenderla nella tabella Admin o Giocatore.
+        String hashDalDb = utente.getPassword();
+
+        // 3. Confronto con BCrypt
+        if (BCrypt.checkpw(passwordInserita, hashDalDb)) {
+            System.out.println("Login riuscito per: " + utente.getClass().getSimpleName());
+            return utente;
+        }
+
+        return null;
     }
 }
+

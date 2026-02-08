@@ -8,6 +8,7 @@ import org.mindrot.jbcrypt.BCrypt; // Per la gestione sicura della password
 @Table(name = "amministratori")
 @PrimaryKeyJoinColumn(name = "id_utente") // Lega l'ID alla tabella 'utenti'
 public class Amministratore extends Utente {
+    
 
     @Column(name = "password", nullable = false, length = 60)
     private String password;
@@ -31,7 +32,9 @@ public class Amministratore extends Utente {
             this.password = BCrypt.hashpw(this.password, BCrypt.gensalt());
         }
     }
-
+    
+    
+    @Override
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     

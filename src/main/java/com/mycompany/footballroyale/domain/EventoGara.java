@@ -1,5 +1,6 @@
 package com.mycompany.footballroyale.domain;
 
+import com.mycompany.footballroyale.domain.Enum.TipologiaEvento;
 import jakarta.persistence.*; // Necessario per Hibernate 6+
 
 @Entity
@@ -15,7 +16,7 @@ public class EventoGara {
     private int minuto;
 
     @Column(name = "tipologia", length = 50) // Gol, Ammonizione, Espulsione
-    private String tipologia;
+    private TipologiaEvento tipologia;
 
     // Relazione: Molti eventi appartengono a una sola partita
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,28 +32,28 @@ public class EventoGara {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_giocatore_protagonista")
     private Giocatore protagonista;
+    
 
     // Costruttore vuoto obbligatorio per Hibernate
     public EventoGara() {}
 
-    public EventoGara(int minuto, String tipologia, Giocatore protagonista, 
+    public EventoGara(int minuto, Giocatore protagonista, 
                       Partita partita, OperatorePartita operatore) {
         this.minuto = minuto;
-        this.tipologia = tipologia;
         this.protagonista = protagonista;
         this.partita = partita;
         this.operatore = operatore;
     }
 
-    // Getter e Setter...
+  
     public String getId() { return Id; }
     public void setId(String Id) { this.Id = Id; }
 
     public int getMinuto() { return minuto; }
     public void setMinuto(int minuto) { this.minuto = minuto; }
 
-    public String getTipologia() { return tipologia; }
-    public void setTipologia(String tipologia) { this.tipologia = tipologia; }
+    public TipologiaEvento getTipologia() { return tipologia; }
+    public void setTipologia(TipologiaEvento tipologia) { this.tipologia = tipologia; }
 
     public Giocatore getProtagonista() { return protagonista; }
     public void setProtagonista(Giocatore p) { this.protagonista = p; }

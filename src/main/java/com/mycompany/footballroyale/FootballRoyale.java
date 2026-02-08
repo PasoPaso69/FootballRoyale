@@ -1,33 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.footballroyale;
 
-import com.mycompany.footballroyale.util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import com.mycompany.footballroyale.TechnicalService.HibernateService;
+import com.mycompany.footballroyale.TechnicalService.EntityManager;
+import com.mycompany.footballroyale.domain.Campetto;
+import java.util.List;
 
 public class FootballRoyale {
 
     public static void main(String[] args) {
-        System.out.println("--- AVVIO TEST HIBERNATE ---");
+        System.out.println("--- [SISTEMA FOOTBALL ROYALE] AVVIO ---");
         
-        // 1. Tenta di aprire una sessione (questo inizializza il SessionFactory)
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try {
+            // 1. Inizializziamo Hibernate tramite il nostro Service Singleton
+            // Al primo richiamo, Hibernate legge il cfg.xml e crea le tabelle
+            System.out.println(">>> Collegamento al database in corso...");
+            HibernateService.getInstance().getSessionFactory(); 
+            System.out.println(">>> Connessione stabilita e tabelle verificate!");
+
+            // 2. Testiamo l'EntityManager
+            // Proviamo a vedere quanti campetti ci sono nel DB (all'inizio sarà 0)
+            System.out.println(">>> Controllo dati esistenti...");
+            List<Campetto> listaCampetti = EntityManager.getInstance().findAll(Campetto.class);
             
-            System.out.println(">>> Connessione stabilita con successo!");
-            
-            // Se arrivi qui senza errori, Hibernate ha già inviato i comandi 
-            // per creare le tabelle grazie alla proprietà 'update' nel file cfg.xml
-            
+            System.out.println(">>> Test completato! Campetti registrati nel sistema: " + listaCampetti.size());
+
         } catch (Exception e) {
-            System.err.println("!!! ERRORE DURANTE IL TEST !!!");
+            System.err.println("!!! ERRORE CRITICO DURANTE L'AVVIO DEL DB !!!");
+            System.err.println("Assicurati che MySQL sia attivo e che il database 'FootballRoyale' esista.");
             e.printStackTrace();
-        } finally {
-            // Chiude il SessionFactory alla fine del test
-            HibernateUtil.getSessionFactory().close();
-            System.out.println("--- TEST CONCLUSO ---");
-        }
+        } 
+        
+        // NOTA: Non chiudere la SessionFactory qui se questa è l'app principale,
+        // altrimenti il database diventerà irraggiungibile per il resto del programma!
     }
 }

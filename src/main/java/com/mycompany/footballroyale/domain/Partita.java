@@ -1,6 +1,8 @@
 package com.mycompany.footballroyale.domain;
 
+import com.mycompany.footballroyale.domain.Enum.StatoPartita;
 import jakarta.persistence.*; // Necessario per Hibernate 6+
+import java.sql.Time;
 import java.util.*;
 
 @Entity
@@ -17,7 +19,7 @@ public class Partita {
     private Date data;
 
     @Column(name = "orario")
-    private String orario;
+    private Time orario;
 
     @Column(name = "punteggio_casa")
     private int punteggioCasa;
@@ -26,22 +28,26 @@ public class Partita {
     private int punteggioOspiti;
 
     @Column(name = "stato")
-    private String stato;
+    private StatoPartita stato;
 
     // Relazione verso Squadra (Casa)
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_squadra_casa")
     private Squadra squadraCasa;
 
     // Relazione verso Squadra (Ospite)
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_squadra_ospite")
     private Squadra squadraOspite;
 
-    // Relazione verso Competizione
+    
     @ManyToOne
     @JoinColumn(name = "id_competizione")
     private Competizione competizione;
+    
+    @OneToOne(cascade = CascadeType.ALL) 
+    @JoinColumn(name = "Prenotazione_Partita")
+    private Prenotazione prenotazione;
 
     // Relazione 1 -> * con EventoGara
     // 'partita' deve essere il nome del campo nella classe EventoGara
@@ -51,13 +57,13 @@ public class Partita {
     public Partita() {}
     
   
-    public Partita(Date data, String orario, Squadra casa, Squadra ospite, Competizione comp) {
+    public Partita(Squadra casa,Squadra ospite,Date data, Time orari ,  Competizione comp) {
         this.data = data;
         this.orario = orario;
         this.squadraCasa = casa;
         this.squadraOspite = ospite;
         this.competizione = comp;
-        this.stato = "Programmata"; // Stato di default
+        this.stato = StatoPartita.Programmata; // Stato di default
         this.punteggioCasa = 0;
         this.punteggioOspiti = 0;
     }
@@ -68,8 +74,8 @@ public class Partita {
     public Date getData() { return data; }
     public void setData(Date data) { this.data = data; }
 
-    public String getOrario() { return orario; }
-    public void setOrario(String orario) { this.orario = orario; }
+    public Time getOrario() { return orario; }
+    public void setOrario(Time orario) { this.orario = orario; }
 
     public int getPunteggioCasa() { return punteggioCasa; }
     public void setPunteggioCasa(int punteggioCasa) { this.punteggioCasa = punteggioCasa; }
@@ -77,8 +83,8 @@ public class Partita {
     public int getPunteggioOspiti() { return punteggioOspiti; }
     public void setPunteggioOspiti(int punteggioOspiti) { this.punteggioOspiti = punteggioOspiti; }
 
-    public String getStato() { return stato; }
-    public void setStato(String stato) { this.stato = stato; }
+    public StatoPartita getStato() { return stato; }
+    public void setStato(StatoPartita stato) { this.stato = stato; }
 
     public Squadra getSquadraCasa() { return squadraCasa; }
     public void setSquadraCasa(Squadra s) { this.squadraCasa = s; }

@@ -1,5 +1,6 @@
 package com.mycompany.footballroyale.domain;
 
+import com.mycompany.footballroyale.domain.Enum.StatoCompetizione;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public abstract class Competizione {
     private String nome;
 
     @Column(name = "stato")
-    private String stato;
+    private StatoCompetizione stato;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "data_inizio")
@@ -33,18 +34,26 @@ public abstract class Competizione {
         inverseJoinColumns = @JoinColumn(name = "id_squadra")
     )
     private List<Squadra> squadrePartecipanti = new ArrayList<>();
+    
+        @ManyToMany
+    @JoinTable(
+        name = "DisponibilitàCampetti", 
+        joinColumns = @JoinColumn(name = "id_competizione"),
+        inverseJoinColumns = @JoinColumn(name = "id_campetto")
+    )
+    private List<Campetto> campettiDisponibili = new ArrayList<>();
 
     // Relazione Uno-a-Molti: Una competizione ha molte partite (il calendario)
     @OneToMany(mappedBy = "competizione", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Partita> calendario = new ArrayList<>();
-
+    
     public Competizione() {}
 
     public Competizione(String id, String nome, Date dataInizio) {
         this.Id = id;
         this.nome = nome;
         this.dataInizio = dataInizio;
-        this.stato = "In configurazione";
+        this.stato = StatoCompetizione.InConfigurazione;
     }
 
     // Getter e Setter
@@ -54,8 +63,8 @@ public abstract class Competizione {
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
 
-    public String getStato() { return stato; }
-    public void setStato(String stato) { this.stato = stato; }
+    public StatoCompetizione getStato() { return stato; }
+    public void setStato(StatoCompetizione stato) { this.stato = stato; }
 
     public Date getDataInizio() { return dataInizio; }
     public void setDataInizio(Date dataInizio) { this.dataInizio = dataInizio; }

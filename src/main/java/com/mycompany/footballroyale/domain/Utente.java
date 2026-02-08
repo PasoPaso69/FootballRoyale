@@ -72,6 +72,9 @@ public abstract class Utente {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
     
+    
+    public abstract String getPassword();
+    
     @Override
     public String toString() {
         return "Id='" + id + '\'' +

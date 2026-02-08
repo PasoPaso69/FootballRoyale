@@ -6,6 +6,7 @@ package com.mycompany.footballroyale.domain;
 
 import jakarta.persistence.*; // Necessario per Hibernate 6+
 import java.util.Date;
+import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
@@ -13,10 +14,20 @@ import org.mindrot.jbcrypt.BCrypt;
 @PrimaryKeyJoinColumn(name = "id_utente") 
 
 public class OperatorePartita extends Utente {
+    
+
 
     @Column(name = "password", nullable = false)
     private String password;
+    
+        @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_Evento")
+    private List<EventoGara> EventiInseriti;
+        
+        
     public OperatorePartita() { super(); }
+    
+    
     
     public OperatorePartita(String id, String nome, String cognome,
                             Date dataNascita, String cittaDiNascita, String telefono, 
@@ -24,7 +35,11 @@ public class OperatorePartita extends Utente {
         super(id, nome, cognome, dataNascita, cittaDiNascita, telefono, email);
         this.password = password;
     }
+    public List<EventoGara> getEvento(){return this.EventiInseriti;}
+    public void setEventi(List<EventoGara> e ){this.EventiInseriti = e; }
+    
 
+    @Override
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     
