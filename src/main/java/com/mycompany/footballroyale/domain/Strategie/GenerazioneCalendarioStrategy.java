@@ -4,6 +4,7 @@
  */
 package com.mycompany.footballroyale.domain.Strategie;
 import com.mycompany.footballroyale.domain.*;
+import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
 import java.util.Date;
 
 import java.util.List;
@@ -12,5 +13,5 @@ import java.util.List;
  * @author 39327
  */
 public interface GenerazioneCalendarioStrategy {
-    List<Partita> generaCalendario(List<Squadra> Squadre, List<Campetto> campetti,Date dataInizio,String Giorni,int PartitePerGiorno);
+    List<Partita> generaCalendario(List<Squadra> Squadre, List<Campetto> campetti,Date dataInizio,List<GiorniSettimanali> giorni,int PartitePerGiorno);
 }

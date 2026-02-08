@@ -1,6 +1,8 @@
 package com.mycompany.footballroyale.domain;
 
+import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
 import com.mycompany.footballroyale.domain.Enum.StatoCompetizione;
+import com.mycompany.footballroyale.domain.Strategie.GenerazioneCalendarioStrategy;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.ArrayList;
@@ -21,6 +23,10 @@ public abstract class Competizione {
 
     @Column(name = "stato")
     private StatoCompetizione stato;
+    
+    @Transient
+    protected GenerazioneCalendarioStrategy strategia;
+
 
     @Temporal(TemporalType.DATE)
     @Column(name = "data_inizio")
@@ -33,7 +39,7 @@ public abstract class Competizione {
         joinColumns = @JoinColumn(name = "id_competizione"),
         inverseJoinColumns = @JoinColumn(name = "id_squadra")
     )
-    private List<Squadra> squadrePartecipanti = new ArrayList<>();
+    protected List<Squadra> squadrePartecipanti = new ArrayList<>();
     
         @ManyToMany
     @JoinTable(
@@ -41,11 +47,11 @@ public abstract class Competizione {
         joinColumns = @JoinColumn(name = "id_competizione"),
         inverseJoinColumns = @JoinColumn(name = "id_campetto")
     )
-    private List<Campetto> campettiDisponibili = new ArrayList<>();
+    protected List<Campetto> campettiDisponibili = new ArrayList<>();
 
     // Relazione Uno-a-Molti: Una competizione ha molte partite (il calendario)
     @OneToMany(mappedBy = "competizione", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Partita> calendario = new ArrayList<>();
+    protected List<Partita> calendario = new ArrayList<>();
     
     public Competizione() {}
 
@@ -74,8 +80,14 @@ public abstract class Competizione {
 
     public List<Partita> getCalendario() { return calendario; }
     public void setCalendario(List<Partita> c) { this.calendario = c; }
+    
+    public List<Campetto> getCampetti() { return campettiDisponibili; }
+    public void setcampetto(List<Campetto> c) { this.campettiDisponibili = c; }
+    
+        public void setStrategia(GenerazioneCalendarioStrategy s){this.strategia= s;}
+    
 
-    public abstract void generaCalendario();
+    public abstract List<Partita> generaCalendario(List<GiorniSettimanali> giorni,int ppg,Date DataInizio);
 
     @Override
     public String toString() {

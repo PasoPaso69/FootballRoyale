@@ -5,6 +5,7 @@
 package com.mycompany.footballroyale.TechnicalService;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
+import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -82,7 +83,7 @@ public class EntityManager {
      * @return              the specified object from the id
      * @param <T>
      */
-    public <T> T findById(Class<T> entityType, int id) {
+    public <T> T findById(Class<T> entityType, String id) {
         T result = null;
         try (Session session = sessionFactory.openSession()) {
             result = session.get(entityType, id);
@@ -112,6 +113,20 @@ public class EntityManager {
         }
         return result;
     }
+ 
+    public <T> List<T> findListByAttribute(Class<T> entityType, String attribute, Object attributeValue) {
+        List<T> results = new ArrayList<>();
+        try (Session session = sessionFactory.openSession()) {
+           String hql = "FROM " + entityType.getName() + " a WHERE a." + attribute + " = :attributeValue";
+           results = session.createQuery(hql, entityType)
+                        .setParameter("attributeValue", attributeValue)
+                        .getResultList(); // <--- Fondamentale per avere una lista
+    } catch (Exception e) {
+        System.err.println("Errore durante la findListByAttribute");
+        e.printStackTrace();
+    }
+    return results;
+}
 
     /**
      * Method that returns all the objects from a table in the db, so all the objects from a certain class

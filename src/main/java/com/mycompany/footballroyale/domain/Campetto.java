@@ -4,6 +4,7 @@
  */
 package com.mycompany.footballroyale.domain;
 
+import com.mycompany.footballroyale.domain.Enum.StatoCampetto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,7 +37,7 @@ public class Campetto {
     private String nome;
 
     @Column(name = "stato")
-    private String stato;
+    private StatoCampetto stato;
     
      @Column(name = "indirizzo")
     private String indirizzo;
@@ -51,7 +52,7 @@ public class Campetto {
         this.Id = id;
         this.nome = nome;
         this.indirizzo = indirizzo;
-        this.stato = "attivo";
+        this.stato = StatoCampetto.Agibile;
     }
 
     // Getter e Setter
@@ -61,8 +62,8 @@ public class Campetto {
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
 
-    public String getStato() { return stato; }
-    public void setStato(String stato) { this.stato = stato; }
+    public StatoCampetto getStato() { return stato; }
+    public void setStato(StatoCampetto stato) { this.stato = stato; }
     
    public List<Prenotazione> getPrenotazioni() {return this.prenotazioni;}
    public void setPrenotazioni(List<Prenotazione> p) {this.prenotazioni=p;}

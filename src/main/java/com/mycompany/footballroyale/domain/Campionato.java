@@ -1,5 +1,8 @@
 package com.mycompany.footballroyale.domain;
 
+import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
+import com.mycompany.footballroyale.domain.Enum.StatoCompetizione;
+import com.mycompany.footballroyale.domain.Strategie.GenerazioneCalendarioStrategy;
 import jakarta.persistence.*;
 import java.util.*;
 
@@ -10,6 +13,7 @@ public class Campionato extends Competizione {
 
     @Column(name = "anno")
     private int anno;
+    
 
     @Column(name = "numero_giornate")
     private int numeroGiornate;
@@ -55,10 +59,22 @@ public class Campionato extends Competizione {
     public int getPuntiSconfitta() { return puntiSconfitta; }
     public void setPuntiSconfitta(int puntiSconfitta) { this.puntiSconfitta = puntiSconfitta; }
     
+
+    
     @Override
-    public void generaCalendario() {
-        List<Squadra> squadre = getSquadrePartecipanti();
-        if (squadre.isEmpty()) return; 
+    public List<Partita> generaCalendario(List<GiorniSettimanali> giorni,int ppg,Date DataInizio) {
+        List<Partita> partiteGenerate = strategia.generaCalendario(
+            this.squadrePartecipanti, 
+            this.campettiDisponibili, 
+            DataInizio, 
+            giorni, 
+            ppg
+        );
+        for (Partita p : partiteGenerate){
+            this.calendario.add(p);
+    }
+        this.setStato(StatoCompetizione.DaIniziare);
+        return calendario;
     }
     
     @Override
