@@ -38,7 +38,7 @@ public class GestoreTorneo {
             default -> throw new IllegalArgumentException("Tipo competizione non supportato: " + Competizione);
         };
          competizionecorrente = nuovaCompetizione;
-         EntityManager.getInstance().save(nuovaCompetizione);
+         
          Map<String,String> TutteLesquadre = PersistentManager.getInstance().getIdNomeSquadre();
        
         return TutteLesquadre;
@@ -68,7 +68,13 @@ public class GestoreTorneo {
         GenerazioneCalendarioStrategy algoritmoScelto = FootballRoyaleBusinessFactory.getStrategy(criterio);
         competizionecorrente.setStrategia(algoritmoScelto);
         competizionecorrente.generaCalendario(giorni,ppg,dataInizio);
+  
         return true;
+    }
+    
+    public Boolean ConfermaCampionato()  {
+         EntityManager.getInstance().save(competizionecorrente);
+         return true;
     }
      
      
