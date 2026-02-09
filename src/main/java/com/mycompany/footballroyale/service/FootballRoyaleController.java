@@ -80,8 +80,10 @@ public class FootballRoyaleController {
      this.creazioneSquadra.AssegnaGiocatori(IdSelezionati);
 
      //conferma inserimento
-     this.SquadraView.ConfermaInserimento();
-     
+    Boolean ackConferma = this.SquadraView.ConfermaInserimento();
+        if (!ackConferma) {
+        return;
+        }
      this.creazioneSquadra.ConfermaInserimento();
 }
     }

@@ -91,15 +91,35 @@ public List<Long> selezionaIdGiocatori() {
 
     return ids;
 }
-    public Boolean ConfermaInserimento(){
-    int input=1;
-    
-      while(input != 1){     
-    System.out.println("Scegli Se confermare: ");
-    input = scanner.nextInt();
+   public boolean ConfermaInserimento() {
+    System.out.println("\n" + "=".repeat(40));
+    System.out.println("      RIEPILOGO E CONFERMA FINALE      ");
+    System.out.println("=".repeat(40));
+    System.out.println(" [1] Conferma e Salva nel Database");
+    System.out.println(" [0] Annulla e torna al Menu");
+    System.out.println("=".repeat(40));
 
+    int scelta = -1;
+
+    while (scelta != 0 && scelta != 1) {
+        System.out.print(" -> Seleziona un'opzione (0/1): ");
+        
+        // Controllo per evitare crash se l'utente inserisce lettere
+        if (scanner.hasNextInt()) {
+            scelta = scanner.nextInt();
+        } else {
+            System.out.println(" [!] Errore: Inserire solo numeri (0 o 1).");
+        }
+        
+        scanner.nextLine(); // Pulisce il buffer dello scanner (IMPORTANTE)
     }
-      System.out.println("CREAZIONE SQUADRA CONFERMATA ");
-   return true;
+
+    if (scelta == 1) {
+        System.out.println("\n >>> OPERAZIONE COMPLETATA: Squadra creata con successo! <<<");
+        return true;
+    } else {
+        System.out.println("\n >>> OPERAZIONE ANNULLATA: I dati sono stati scartati. <<<");
+        return false;
     }
+}
 }
