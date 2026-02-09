@@ -61,4 +61,12 @@ public class PersistentManager {
        
        return PrenotazioneDao.getPrenotazioni();
     }
+    
+    public Map<String,String> getIdNomiGiocatori(){
+            return GiocatoreDao.getMappaIdNomeG();
+    }
+    
+    public List<Giocatore> getGiocatorePerId(List<String> IdSelezionati){
+        return GiocatoreDao.getGiocatorePerID(IdSelezionati);}
+        
 }

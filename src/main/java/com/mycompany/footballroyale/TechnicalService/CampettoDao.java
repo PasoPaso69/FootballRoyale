@@ -65,7 +65,7 @@ public class CampettoDao {
             }
             
         } catch (Exception e) {
-            System.err.println("Errore nel recupero della mappa squadre:");
+            System.err.println("Errore nel recupero della mappa campetti:");
             e.printStackTrace();
         }
         

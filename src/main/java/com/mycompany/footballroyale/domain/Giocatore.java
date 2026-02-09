@@ -82,8 +82,11 @@ public class Giocatore extends Utente {
     public Foto getFoto() { return foto; }
     public void setFoto(Foto foto) { this.foto = foto; }
     
+    public Squadra getSquadra() { return squadra; }
+    public void setSquadra(Squadra squadra) { this.squadra = squadra; }
+    
     public Boolean getDisponibilita(){return Disponibilita;}
-    public void setEmail(Boolean Disponibilità) {this.Disponibilita = Disponibilità;}
+    public void setDisponibilita(Boolean Disponibilità) {this.Disponibilita = Disponibilità;}
     
     @Override
 public String toString() {
