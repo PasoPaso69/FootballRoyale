@@ -23,8 +23,8 @@ public class SquadraDao {
         return EntityManager.getInstance().findAll(Squadra.class);
     }
     
-public static Map<String, String> getMappaIdNome() {
-        Map<String, String> mappa = new HashMap<>();
+public static Map<Long, String> getMappaIdNome() {
+        Map<Long, String> mappa = new HashMap<>();
         
         // Usiamo il nostro HibernateService per aprire la sessione
         try (Session session = HibernateService.getInstance().getSessionFactory().openSession()) {
@@ -36,7 +36,7 @@ public static Map<String, String> getMappaIdNome() {
 
             // Cicliamo sui risultati e riempiamo la mappa
             for (Object[] riga : risultati) {
-                String id = (String) riga[0];
+                Long id = (Long) riga[0];
                 String nome = (String) riga[1];
                 mappa.put(id, nome);
             }
@@ -49,9 +49,9 @@ public static Map<String, String> getMappaIdNome() {
         return mappa;
     }
 
-    public static List<Squadra> getSquadrePerID(List<String> IdSelezionati){
+    public static List<Squadra> getSquadrePerID(List<Long> IdSelezionati){
         List<Squadra> squadre = new ArrayList<>();
-    for (String id : IdSelezionati) {
+    for (Long id : IdSelezionati) {
         // Usiamo l'EntityManager per prendere l'oggetto intero
         Squadra s = EntityManager.getInstance().findById(Squadra.class, id);
         if (s != null) squadre.add(s);

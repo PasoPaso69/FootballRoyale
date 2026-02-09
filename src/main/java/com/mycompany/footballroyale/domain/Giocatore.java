@@ -26,8 +26,8 @@ public class Giocatore extends Utente {
     @JoinColumn(name = "id_foto")
     private Foto foto;
     
-    @Column(name= "disponibilità")
-    private Boolean Disponibilita;
+    @Column(name= "disponibilita")
+    private Boolean disponibilita;
 
     // Relazione molti-a-uno: molti giocatori appartengono a una squadra
     // Il nome "squadra" deve corrispondere a quello usato in mappedBy nella classe Squadra
@@ -43,7 +43,7 @@ public class Giocatore extends Utente {
     public Giocatore() { super(); }
     
  
-     public Giocatore(String id, String nome, String cognome,  
+     public Giocatore(Long id, String nome, String cognome,  
                      Date dataNascita, String cittaDiNascita, String telefono, String email,
                      int numeroMaglia, String ruolo, Foto foto) {
         
@@ -85,8 +85,8 @@ public class Giocatore extends Utente {
     public Squadra getSquadra() { return squadra; }
     public void setSquadra(Squadra squadra) { this.squadra = squadra; }
     
-    public Boolean getDisponibilita(){return Disponibilita;}
-    public void setDisponibilita(Boolean Disponibilità) {this.Disponibilita = Disponibilità;}
+    public Boolean getDisponibilita(){return disponibilita;}
+    public void setDisponibilita(Boolean Disponibilità) {this.disponibilita = Disponibilità;}
     
     @Override
 public String toString() {

@@ -20,23 +20,26 @@ import org.hibernate.Session;
 public class GiocatoreDao {
  
     
-    public static Map<String, String> getMappaIdNomeG() {
-        Map<String, String> mappaC = new HashMap<>();
+    public static Map<Long, String> getMappaIdNomeG() {
+        Map<Long, String> mappaC = new HashMap<>();
         
         // Usiamo il nostro HibernateService per aprire la sessione
         try (Session session = HibernateService.getInstance().getSessionFactory().openSession()) {
             
             // Query HQL: selezioniamo solo id e nome (non l'intero oggetto)
             // Hibernate restituirà una lista di array di oggetti: List<Object[]>
-            String hql = "SELECT g.id, g.nome FROM Giocatore g WHERE g.disponibilita = : disponibilita";
+              String hql = "SELECT g.id, " +
+             "CONCAT(g.nome, ' ', g.cognome, ' | Ruolo: ', g.ruolo, " +
+             "' | N°: ', g.numeroMaglia, ' | Anno: ', YEAR(g.dataNascita)) " +
+             "FROM Giocatore g WHERE g.disponibilita = :disponibilita";
             
             List<Object[]> risultati = session.createQuery(hql, Object[].class).setParameter("disponibilita", true).list();
 
             // Cicliamo sui risultati e riempiamo la mappa
             for (Object[] riga : risultati) {
-                String id = (String) riga[0];
-                String nome = (String) riga[1];
-                mappaC.put(id, nome);
+                Long id = (Long) riga[0];
+                String descrizione = (String) riga[1];
+                mappaC.put(id, descrizione);
             }
             
         } catch (Exception e) {
@@ -47,9 +50,9 @@ public class GiocatoreDao {
         return mappaC;
     }
     
-    public static List<Giocatore> getGiocatorePerID(List<String> IdSelezionati){
+    public static List<Giocatore> getGiocatorePerID(List<Long> IdSelezionati){
         List<Giocatore> giocatore = new ArrayList<>();
-    for (String id : IdSelezionati) {
+    for (Long id : IdSelezionati) {
         // Usiamo l'EntityManager per prendere l'oggetto intero
         Giocatore s = EntityManager.getInstance().findById(Giocatore.class, id);
         if (s != null) giocatore.add(s);

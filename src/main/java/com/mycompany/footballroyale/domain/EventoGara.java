@@ -8,9 +8,9 @@ import jakarta.persistence.*; // Necessario per Hibernate 6+
 public class EventoGara {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID) // Coerente con l'uso delle String per gli ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
     @Column(name = "id_evento")
-    private String Id;
+    private Long Id;
 
     @Column(name = "minuto", nullable = false)
     private int minuto;
@@ -46,8 +46,8 @@ public class EventoGara {
     }
 
   
-    public String getId() { return Id; }
-    public void setId(String Id) { this.Id = Id; }
+    public Long getId() { return Id; }
+    public void setId(Long Id) { this.Id = Id; }
 
     public int getMinuto() { return minuto; }
     public void setMinuto(int minuto) { this.minuto = minuto; }

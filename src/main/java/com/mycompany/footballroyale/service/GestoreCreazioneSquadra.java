@@ -9,6 +9,8 @@ import com.mycompany.footballroyale.TechnicalService.PersistentManager;
 import com.mycompany.footballroyale.domain.CatalogoSquadre;
 import com.mycompany.footballroyale.domain.Giocatore;
 import com.mycompany.footballroyale.domain.Squadra;
+import com.mycompany.footballroyale.view.CreazioneSquadraView;
+import com.mycompany.footballroyale.view.FootballRoyaleView;
 import java.util.List;
 import java.util.Map;
 
@@ -22,16 +24,22 @@ public class GestoreCreazioneSquadra {
     private String TempDettaglioMagliaCasa;
     private String TempDettaglioMagliaTrasferta;
     private List<Giocatore> giocatoriAssegnati;
-   public Map<String,String> InserisciDati(String nome, String DettaglioMagliaCasa, String DettaglioMagliaTrasferta){
+
+   
+public GestoreCreazioneSquadra(){
+        this.catalogoSquadra = new CatalogoSquadre();
+}
+    
+   public Map<Long,String> InserisciDati(String nome, String DettaglioMagliaCasa, String DettaglioMagliaTrasferta){
        TempNome=nome;
        TempDettaglioMagliaCasa=DettaglioMagliaCasa;
        TempDettaglioMagliaTrasferta=DettaglioMagliaTrasferta;
-       Map<String,String> ListaGiocatori = PersistentManager.getInstance().getIdNomiGiocatori();
+       Map<Long,String> ListaGiocatori = PersistentManager.getInstance().getIdNomiGiocatori();
        return ListaGiocatori;
       
    }
    
-   public Boolean AssegnaGiocatori(List<String> idSelezionati){
+   public Boolean AssegnaGiocatori(List<Long> idSelezionati){
        List<Giocatore> ListaGiocatoriSelezionati = PersistentManager.getInstance().getGiocatorePerId(idSelezionati);
        giocatoriAssegnati = ListaGiocatoriSelezionati;
        return true;

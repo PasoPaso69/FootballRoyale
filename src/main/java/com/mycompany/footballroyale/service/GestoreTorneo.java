@@ -28,7 +28,7 @@ public class GestoreTorneo {
 
 
     
-     public Map<String,String> selezionaFormato(String nome,TipoCompetizione Competizione){
+     public Map<Long,String> selezionaFormato(String nome,TipoCompetizione Competizione){
        
      Competizione nuovaCompetizione = switch (Competizione) {
             case CAMPIONATO -> new Campionato();
@@ -41,22 +41,22 @@ public class GestoreTorneo {
          competizionecorrente = nuovaCompetizione;
          competizionecorrente.setNome(nome);
 
-         Map<String,String> TutteLesquadre = PersistentManager.getInstance().getIdNomeSquadre();
+         Map<Long,String> TutteLesquadre = PersistentManager.getInstance().getIdNomeSquadre();
        
         return TutteLesquadre;
     }
      
-     public Map<String,String> SelezionaSquadre(List<String> IdSquadre){
+     public Map<Long,String> SelezionaSquadre(List<Long> IdSquadre){
          List<Squadra> SquadreSelezionate= PersistentManager.getInstance().getSquadrePerID(IdSquadre);
          competizionecorrente.setSquadrePartecipanti(SquadreSelezionate);
          
-         Map<String,String> campiDisp = PersistentManager.getInstance().getIdNomeCampiDisponibili();
+         Map<Long,String> campiDisp = PersistentManager.getInstance().getIdNomeCampiDisponibili();
          
          return campiDisp;
          
      }
      
-    public Boolean SelezionaCampetti(List<String> IdCampetti){
+    public Boolean SelezionaCampetti(List<Long> IdCampetti){
          List<Campetto> CampettiSelezionati= PersistentManager.getInstance().getCampettiPerID(IdCampetti);
          competizionecorrente.setcampetto(CampettiSelezionati);
          

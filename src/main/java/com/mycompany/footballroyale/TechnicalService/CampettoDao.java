@@ -45,8 +45,8 @@ public class CampettoDao {
         List<Campetto> CampettiDisponibili = EntityManager.getInstance().findListByAttribute(Campetto.class, "stato" , StatoCampetto.Agibile);
        return CampettiDisponibili; 
     }
-    public static Map<String, String> getMappaIdNomeC() {
-        Map<String, String> mappaC = new HashMap<>();
+    public static Map<Long, String> getMappaIdNomeC() {
+        Map<Long, String> mappaC = new HashMap<>();
         
         // Usiamo il nostro HibernateService per aprire la sessione
         try (Session session = HibernateService.getInstance().getSessionFactory().openSession()) {
@@ -55,11 +55,11 @@ public class CampettoDao {
             // Hibernate restituirà una lista di array di oggetti: List<Object[]>
             String hql = "SELECT c.id, c.nome FROM Campetto c WHERE c.stato = : statoC";
             
-            List<Object[]> risultati = session.createQuery(hql, Object[].class).setParameter("statoC", StatoCampetto.Agibile).list();
+            List<Object[]> risultati = session.createQuery(hql, Object[].class).setParameter("stato", StatoCampetto.Agibile).list();
 
             // Cicliamo sui risultati e riempiamo la mappa
             for (Object[] riga : risultati) {
-                String id = (String) riga[0];
+                Long id = (Long) riga[0];
                 String nome = (String) riga[1];
                 mappaC.put(id, nome);
             }
@@ -71,9 +71,9 @@ public class CampettoDao {
         
         return mappaC;
     }
-     public static List<Campetto> getCampettiPerID(List<String> IdSelezionati){
+     public static List<Campetto> getCampettiPerID(List<Long> IdSelezionati){
         List<Campetto> campetto = new ArrayList<>();
-    for (String id : IdSelezionati) {
+    for (Long id : IdSelezionati) {
         // Usiamo l'EntityManager per prendere l'oggetto intero
         Campetto s = EntityManager.getInstance().findById(Campetto.class, id);
         if (s != null) campetto.add(s);
@@ -81,7 +81,7 @@ public class CampettoDao {
     return campetto;
     }
      
-     public boolean isCampettoLibero(String idCampetto, Date oraInizioPartita) {
+     public boolean isCampettoLibero(Long idCampetto, Date oraInizioPartita) {
     // Calcoliamo la fine della partita (90 minuti dopo)
     long novantaMinutiInMs = 90 * 60 * 1000; 
     Date oraFinePartita = new Date(oraInizioPartita.getTime() + novantaMinutiInMs);

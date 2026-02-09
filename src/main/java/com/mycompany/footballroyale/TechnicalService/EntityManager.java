@@ -52,7 +52,7 @@ public class EntityManager {
         Transaction tx = null;
         try(Session session = sessionFactory.openSession()) {
             tx = session.beginTransaction();
-            session.persist(entity);
+            session.merge(entity);
             tx.commit();
         }catch (Exception e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class EntityManager {
      * @return              the specified object from the id
      * @param <T>
      */
-    public <T> T findById(Class<T> entityType, String id) {
+    public <T> T findById(Class<T> entityType, Long id) {
         T result = null;
         try (Session session = sessionFactory.openSession()) {
             result = session.get(entityType, id);

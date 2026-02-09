@@ -9,9 +9,9 @@ import java.util.Date;
 public class Foto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID) // Genera ID stringa univoci automaticamente
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
     @Column(name = "id_foto")
-    private String Id;
+    private Long Id;
 
     @Lob // Specifica che il campo contiene un oggetto di grandi dimensioni (Binary Large Object)
     @Column(name = "dati_binari", columnDefinition = "LONGBLOB")
@@ -25,7 +25,7 @@ public class Foto {
 
     public Foto() {}
     
-        public Foto(String id, Blob data, String fileName, String extension) {
+        public Foto(Long id, Blob data, String fileName, String extension) {
         this.Id = id;
         this.data = data;
         this.fileName = fileName;
@@ -34,8 +34,8 @@ public class Foto {
     }
 
     // Getter e Setter
-    public String getId() { return Id; }
-    public void setId(String Id) { this.Id = Id; }
+    public Long getId() { return Id; }
+    public void setId(Long Id) { this.Id = Id; }
 
     public Blob getData() { return data; }
     public void setData(Blob data) { this.data = data; } // Corretto CamelCase

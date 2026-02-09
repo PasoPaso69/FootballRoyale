@@ -10,9 +10,9 @@ import java.util.*;
 public class Partita {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID) // Genera automaticamente una stringa univoca
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
     @Column(name = "id_partita")
-    private String Id;
+    private Long Id;
 
     @Temporal(TemporalType.DATE) // Specifica che salviamo solo la data
     @Column(name = "data_gara")
@@ -68,8 +68,8 @@ public class Partita {
         this.punteggioOspiti = 0;
     }
     
-    public String getId() { return Id; }
-    public void setId(String Id) { this.Id = Id; }
+    public Long getId() { return Id; }
+    public void setId(Long Id) { this.Id = Id; }
 
     public Date getData() { return data; }
     public void setData(Date data) { this.data = data; }

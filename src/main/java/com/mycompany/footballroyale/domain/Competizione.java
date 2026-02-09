@@ -14,9 +14,9 @@ import java.util.List;
 public abstract class Competizione {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
     @Column(name = "id_competizione")
-    private String Id;
+    private Long Id;
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
@@ -55,7 +55,7 @@ public abstract class Competizione {
     
     public Competizione() {}
 
-    public Competizione(String id, String nome, Date dataInizio) {
+    public Competizione(Long id, String nome, Date dataInizio) {
         this.Id = id;
         this.nome = nome;
         this.dataInizio = dataInizio;
@@ -63,8 +63,8 @@ public abstract class Competizione {
     }
 
     // Getter e Setter
-    public String getId() { return Id; }
-    public void setId(String Id) { this.Id = Id; }
+    public Long getId() { return Id; }
+    public void setId(Long Id) { this.Id = Id; }
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }

@@ -29,9 +29,9 @@ import java.util.List;
 public class Campetto {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
     @Column(name = "id_campetto")
-    private String Id;
+    private Long Id;
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
@@ -48,7 +48,7 @@ public class Campetto {
     
     public Campetto() {}
 
-    public Campetto(String id, String nome,String indirizzo) {
+    public Campetto(Long id, String nome,String indirizzo) {
         this.Id = id;
         this.nome = nome;
         this.indirizzo = indirizzo;
@@ -56,8 +56,8 @@ public class Campetto {
     }
 
     // Getter e Setter
-    public String getId() { return Id; }
-    public void setId(String Id) { this.Id = Id; }
+    public Long getId() { return Id; }
+    public void setId(Long Id) { this.Id = Id; }
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }

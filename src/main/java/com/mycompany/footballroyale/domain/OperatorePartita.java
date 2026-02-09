@@ -29,7 +29,7 @@ public class OperatorePartita extends Utente {
     
     
     
-    public OperatorePartita(String id, String nome, String cognome,
+    public OperatorePartita(Long id, String nome, String cognome,
                             Date dataNascita, String cittaDiNascita, String telefono, 
                             String email, String password) {
         super(id, nome, cognome, dataNascita, cittaDiNascita, telefono, email);

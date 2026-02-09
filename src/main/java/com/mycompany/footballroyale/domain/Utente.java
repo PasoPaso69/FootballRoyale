@@ -11,9 +11,9 @@ import java.util.List;
 public abstract class Utente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
     @Column(name = "id_utente")
-    private String id; // Se vuoi l'auto-incremento, servirebbe un int/long, altrimenti lo gestisci a mano
+    private Long id; // Se vuoi l'auto-incremento, servirebbe un int/long, altrimenti lo gestisci a mano
 
     @Column(name = "nome", nullable = false, length = 50)
     private String nome;
@@ -37,7 +37,7 @@ public abstract class Utente {
 
     public Utente() {}
 
-    public Utente(String id, String nome, String cognome, 
+    public Utente(Long id, String nome, String cognome, 
                   Date dataNascita, String cittaDiNascita, String telefono, String email) {
         this.id = id;
         this.nome = nome;
@@ -49,8 +49,8 @@ public abstract class Utente {
     }
 
     // Getter e Setter rimangono uguali...
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }

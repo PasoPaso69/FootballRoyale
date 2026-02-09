@@ -11,9 +11,9 @@ import java.util.Date;
 public class Squadra {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID) 
-    @Column(name = "id_utente", length = 36)
-    private String Id; 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
+    @Column(name = "id_squadra")
+    private Long Id; 
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
@@ -44,7 +44,7 @@ public class Squadra {
     // Costruttore vuoto obbligatorio
     public Squadra() {}
     
-     public Squadra(String id, String nome,Foto logo, 
+     public Squadra(Long id, String nome,Foto logo, 
                   String DettaglioMagliaCasa, String DettaglioMagliaTrasferta,int vittorie, int pareggi , int sconfitte) {
         this.Id = id;
         this.nome = nome;
@@ -56,9 +56,9 @@ public class Squadra {
         this.sconfitte = sconfitte;
      }
     
-     public String getId() { return Id; }
+     public Long getId() { return Id; }
 
-    public void setId(String Id) { this.Id = Id; }
+    public void setId(Long Id) { this.Id = Id; }
 
 
 
@@ -129,15 +129,5 @@ public class Squadra {
         return overall;
     }
     
-    public Squadra(String id, String nome, Foto logo, String magliaCasa, String magliaTrasferta) {
-        this.Id = id;
-        this.nome = nome;
-        this.logo = logo;
-        this.dettaglioMagliaCasa = magliaCasa;
-        this.dettaglioMagliaTrasferta = magliaTrasferta;
-        this.vittorie = 0;
-        this.pareggi = 0;
-        this.sconfitte = 0;
-    }
-    
+
 }

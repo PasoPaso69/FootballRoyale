@@ -31,7 +31,7 @@ public class Campionato extends Competizione {
         this.puntiSconfitta = 0;
     }
     
-    public Campionato(String id, String nome, Date dataInizio, int anno, int pVittoria, int pPareggio, int pSconfitta) {
+    public Campionato(Long id, String nome, Date dataInizio, int anno, int pVittoria, int pPareggio, int pSconfitta) {
         super(id, nome, dataInizio);
         this.anno = anno;
         this.puntiVittoria = pVittoria;

@@ -31,9 +31,9 @@ import java.util.List;
 public class Prenotazione {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_prenotazione")
-    private String Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
+    @Column(name = "id_utente")
+    private Long Id;
 
     @Column(name = "data")
     private Date data;
@@ -64,12 +64,12 @@ public class Prenotazione {
         this.stato = statoPrenotazione.PENDING; // Impostazione di default suggerita
     }
 
-    public String getId() {
+    public Long getId() {
         return Id;
     }
 
  
-    public void setId(String id) {
+    public void setId(Long id) {
         this.Id = id;
     }
 

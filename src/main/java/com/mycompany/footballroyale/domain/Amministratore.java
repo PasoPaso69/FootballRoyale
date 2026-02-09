@@ -17,7 +17,7 @@ public class Amministratore extends Utente {
         super(); 
     }
     
-    public Amministratore(String id, String nome, String cognome, 
+    public Amministratore(Long id, String nome, String cognome, 
                           Date dataNascita, String cittaDiNascita, String telefono, 
                           String email, String password) {
         super(id, nome, cognome, dataNascita, cittaDiNascita, telefono, email);

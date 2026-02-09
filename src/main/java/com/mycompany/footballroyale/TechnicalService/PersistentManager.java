@@ -38,10 +38,10 @@ public class PersistentManager {
     public List<Campetto> getCampiDisponibili() {
         return CampettoDao.getCampettiDisponibili();
     }
-    public Map<String,String> getIdNomeCampiDisponibili() {
+    public Map<Long,String> getIdNomeCampiDisponibili() {
         return CampettoDao.getMappaIdNomeC();
     }
-        public List<Campetto> getCampettiPerID(List<String> IdSelezionati){
+        public List<Campetto> getCampettiPerID(List<Long> IdSelezionati){
             return CampettoDao.getCampettiPerID(IdSelezionati);
     }
     
@@ -49,11 +49,11 @@ public class PersistentManager {
         return SquadraDao.getTutteLeSquadre();
     }
     
-    public Map<String,String> getIdNomeSquadre() {
+    public Map<Long,String> getIdNomeSquadre() {
         return SquadraDao.getMappaIdNome();
     }
     
-    public List<Squadra> getSquadrePerID(List<String> IdSelezionati){
+    public List<Squadra> getSquadrePerID(List<Long> IdSelezionati){
             return SquadraDao.getSquadrePerID(IdSelezionati);
     }
     
@@ -62,11 +62,11 @@ public class PersistentManager {
        return PrenotazioneDao.getPrenotazioni();
     }
     
-    public Map<String,String> getIdNomiGiocatori(){
+    public Map<Long,String> getIdNomiGiocatori(){
             return GiocatoreDao.getMappaIdNomeG();
     }
     
-    public List<Giocatore> getGiocatorePerId(List<String> IdSelezionati){
+    public List<Giocatore> getGiocatorePerId(List<Long> IdSelezionati){
         return GiocatoreDao.getGiocatorePerID(IdSelezionati);}
         
 }
