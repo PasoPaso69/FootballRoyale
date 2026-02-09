@@ -80,6 +80,30 @@ public class CampettoDao {
     }
     return campetto;
     }
+     
+     public boolean isCampettoLibero(String idCampetto, Date oraInizioPartita) {
+    // Calcoliamo la fine della partita (90 minuti dopo)
+    long novantaMinutiInMs = 90 * 60 * 1000; 
+    Date oraFinePartita = new Date(oraInizioPartita.getTime() + novantaMinutiInMs);
+
+    
+    Session session = HibernateService.getInstance().getSessionFactory().openSession();
+    
+    // Query JPQL per trovare sovrapposizioni
+    String jpql = "SELECT COUNT(p) FROM Prenotazione p " +
+                  "WHERE p.campetto.id = :idCampetto " +
+                  "AND p.oraInizio < :finePartita " +
+                  "AND p.oraFine > :inizioPartita";
+
+    Long coincidenze = session.createQuery(jpql, Long.class)
+            .setParameter("idCampetto", idCampetto)
+            .setParameter("finePartita", oraFinePartita)
+            .setParameter("inizioPartita", oraInizioPartita)
+            .getSingleResult();
+
+    // Se il conteggio è 0, il campo è libero
+    return coincidenze == 0;
+}
     
 
 }

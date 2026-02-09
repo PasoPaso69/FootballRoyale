@@ -13,5 +13,5 @@ import java.util.List;
  * @author 39327
  */
 public interface GenerazioneCalendarioStrategy {
-    List<Partita> generaCalendario(List<Squadra> Squadre, List<Campetto> campetti,Date dataInizio,List<GiorniSettimanali> giorni,int PartitePerGiorno);
+    List<Partita> generaCalendario(List<Squadra> Squadre, List<Campetto> campetti,Date dataInizio,List<GiorniSettimanali> giorni,int PartitePerGiorno,List<Prenotazione> prenotazioni);
 }

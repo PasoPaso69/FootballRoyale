@@ -13,6 +13,8 @@ public enum GiorniSettimanali {
     Martedi,
     Mercoledi,
     Giovedi,
-    Venerdi
+    Venerdi,
+    Sabato,
+    Domenica
     
 }

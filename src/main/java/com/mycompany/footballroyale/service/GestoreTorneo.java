@@ -12,6 +12,7 @@ import com.mycompany.footballroyale.domain.Competizione;
 import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
 import com.mycompany.footballroyale.domain.Enum.TipoCompetizione;
 import com.mycompany.footballroyale.domain.Enum.CriteriCalendario;
+import com.mycompany.footballroyale.domain.Prenotazione;
 import com.mycompany.footballroyale.domain.Squadra;
 import com.mycompany.footballroyale.domain.Strategie.GenerazioneCalendarioStrategy;
 import java.util.Date;
@@ -27,7 +28,7 @@ public class GestoreTorneo {
 
 
     
-     public Map<String,String> selezionaFormato(TipoCompetizione Competizione){
+     public Map<String,String> selezionaFormato(String nome,TipoCompetizione Competizione){
        
      Competizione nuovaCompetizione = switch (Competizione) {
             case CAMPIONATO -> new Campionato();
@@ -38,7 +39,8 @@ public class GestoreTorneo {
             default -> throw new IllegalArgumentException("Tipo competizione non supportato: " + Competizione);
         };
          competizionecorrente = nuovaCompetizione;
-         
+         competizionecorrente.setNome(nome);
+
          Map<String,String> TutteLesquadre = PersistentManager.getInstance().getIdNomeSquadre();
        
         return TutteLesquadre;
@@ -66,13 +68,16 @@ public class GestoreTorneo {
     {
         
         GenerazioneCalendarioStrategy algoritmoScelto = FootballRoyaleBusinessFactory.getStrategy(criterio);
+        List<Prenotazione> prenotazioni = PersistentManager.getInstance().getPrenotazioni();
+        competizionecorrente.setDataInizio(dataInizio);
         competizionecorrente.setStrategia(algoritmoScelto);
-        competizionecorrente.generaCalendario(giorni,ppg,dataInizio);
+        competizionecorrente.generaCalendario(giorni,ppg,dataInizio,prenotazioni);
   
         return true;
     }
     
     public Boolean ConfermaCampionato()  {
+         
          EntityManager.getInstance().save(competizionecorrente);
          return true;
     }

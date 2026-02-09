@@ -34,8 +34,6 @@ public abstract class Utente {
     @Column(name = "email", unique = true) // L'email non può essere duplicata
     private String email;
     
-    @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Prenotazione> PrenotazioniEffetuate = new ArrayList<>();
 
     public Utente() {}
 

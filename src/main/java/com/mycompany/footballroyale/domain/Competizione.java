@@ -22,7 +22,7 @@ public abstract class Competizione {
     private String nome;
 
     @Column(name = "stato")
-    private StatoCompetizione stato;
+    protected StatoCompetizione stato;
     
     @Transient
     protected GenerazioneCalendarioStrategy strategia;
@@ -87,7 +87,7 @@ public abstract class Competizione {
         public void setStrategia(GenerazioneCalendarioStrategy s){this.strategia= s;}
     
 
-    public abstract List<Partita> generaCalendario(List<GiorniSettimanali> giorni,int ppg,Date DataInizio);
+    public abstract List<Partita> generaCalendario(List<GiorniSettimanali> giorni,int ppg,Date DataInizio,List<Prenotazione> prenotazioni);
 
     @Override
     public String toString() {

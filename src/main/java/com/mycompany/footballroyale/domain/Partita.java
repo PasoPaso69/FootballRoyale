@@ -31,12 +31,12 @@ public class Partita {
     private StatoPartita stato;
 
     // Relazione verso Squadra (Casa)
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_squadra_casa")
     private Squadra squadraCasa;
 
     // Relazione verso Squadra (Ospite)
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_squadra_ospite")
     private Squadra squadraOspite;
 
@@ -46,7 +46,7 @@ public class Partita {
     private Competizione competizione;
     
     @OneToOne(cascade = CascadeType.ALL) 
-    @JoinColumn(name = "Prenotazione_Partita")
+    @JoinColumn(name = "id_prenotazione")
     private Prenotazione prenotazione;
 
     // Relazione 1 -> * con EventoGara
@@ -59,7 +59,7 @@ public class Partita {
   
     public Partita(Squadra casa,Squadra ospite,Date data, Time orari ,  Competizione comp) {
         this.data = data;
-        this.orario = orario;
+        this.orario = orari;
         this.squadraCasa = casa;
         this.squadraOspite = ospite;
         this.competizione = comp;
@@ -85,6 +85,9 @@ public class Partita {
 
     public StatoPartita getStato() { return stato; }
     public void setStato(StatoPartita stato) { this.stato = stato; }
+    
+    public Prenotazione getPrenotazione() { return prenotazione; }
+    public void setPrenotazione(Prenotazione prenotazione) { this.prenotazione = prenotazione; }
 
     public Squadra getSquadraCasa() { return squadraCasa; }
     public void setSquadraCasa(Squadra s) { this.squadraCasa = s; }

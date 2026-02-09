@@ -7,6 +7,7 @@ package com.mycompany.footballroyale.TechnicalService;
 import com.mycompany.footballroyale.domain.Campetto;
 import com.mycompany.footballroyale.domain.Foto;
 import com.mycompany.footballroyale.domain.Giocatore;
+import com.mycompany.footballroyale.domain.Prenotazione;
 import com.mycompany.footballroyale.domain.Squadra;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -54,5 +55,10 @@ public class PersistentManager {
     
     public List<Squadra> getSquadrePerID(List<String> IdSelezionati){
             return SquadraDao.getSquadrePerID(IdSelezionati);
+    }
+    
+    public List<Prenotazione> getPrenotazioni(){
+       
+       return PrenotazioneDao.getPrenotazioni();
     }
 }

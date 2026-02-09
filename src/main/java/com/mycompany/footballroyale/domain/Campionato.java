@@ -14,10 +14,6 @@ public class Campionato extends Competizione {
     @Column(name = "anno")
     private int anno;
     
-
-    @Column(name = "numero_giornate")
-    private int numeroGiornate;
-
     @Column(name = "punti_vittoria")
     private int puntiVittoria;
 
@@ -47,9 +43,6 @@ public class Campionato extends Competizione {
     public int getAnno() { return anno; }
     public void setAnno(int anno) { this.anno = anno; }
     
-    public int getNumeroGiornate() { return numeroGiornate; }
-    public void setNumeroGiornate(int numeroGiornate) { this.numeroGiornate = numeroGiornate; }
-    
     public int getPuntiVittoria() { return puntiVittoria; }
     public void setPuntiVittoria(int puntiVittoria) { this.puntiVittoria = puntiVittoria; }
 
@@ -62,19 +55,28 @@ public class Campionato extends Competizione {
 
     
     @Override
-    public List<Partita> generaCalendario(List<GiorniSettimanali> giorni,int ppg,Date DataInizio) {
+    public List<Partita> generaCalendario(List<GiorniSettimanali> giorni,int ppg,Date DataInizio,List<Prenotazione> prenotazioni) {
         List<Partita> partiteGenerate = strategia.generaCalendario(
             this.squadrePartecipanti, 
             this.campettiDisponibili, 
             DataInizio, 
             giorni, 
-            ppg
+            ppg,
+            prenotazioni
+              
         );
-        for (Partita p : partiteGenerate){
-            this.calendario.add(p);
-    }
-        this.setStato(StatoCompetizione.DaIniziare);
-        return calendario;
+// 2. SETTARE LA COMPETIZIONE (Il pezzo mancante)
+        for (Partita p : partiteGenerate) {
+            p.setCompetizione(this); // 'this' è l'oggetto Campionato corrente
+        }
+
+        // 3. Aggiungi tutto al calendario della competizione
+        this.getCalendario().addAll(partiteGenerate);
+        this.stato= StatoCompetizione.DaIniziare;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(DataInizio);
+        this.anno = cal.get(Calendar.YEAR);
+        return partiteGenerate;
     }
     
     @Override
@@ -82,7 +84,6 @@ public class Campionato extends Competizione {
         return "Campionato{" +
                 super.toString() + 
                 ", anno=" + anno +
-                ", numeroGiornate=" + numeroGiornate +
                 '}';
     }
 }

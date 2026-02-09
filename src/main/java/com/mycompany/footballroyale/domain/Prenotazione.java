@@ -55,10 +55,6 @@ public class Prenotazione {
     @JoinColumn(name = "Prenotazione_Partita")
     private Partita partita;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_utente")
-    private Utente utente;
-    
     public Prenotazione(){}
     
     public Prenotazione(Date data, Time orarioInizio, Time orarioFine) {
@@ -109,11 +105,12 @@ public class Prenotazione {
         this.stato = stato;
     }
     
-    public void setUtente(Utente u){
-        this.utente=u;
+
+    public void setCampetto (Campetto u){
+        this.campetto=u;
     }
-    public Utente getUtente(){
-        return utente;
+    public Campetto getCampetto(){
+        return campetto;
     }
 
     public Partita getPartita() {
