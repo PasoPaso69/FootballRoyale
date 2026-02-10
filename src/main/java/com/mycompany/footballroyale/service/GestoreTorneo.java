@@ -12,6 +12,7 @@ import com.mycompany.footballroyale.domain.Competizione;
 import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
 import com.mycompany.footballroyale.domain.Enum.TipoCompetizione;
 import com.mycompany.footballroyale.domain.Enum.CriteriCalendario;
+import com.mycompany.footballroyale.domain.Partita;
 import com.mycompany.footballroyale.domain.Prenotazione;
 import com.mycompany.footballroyale.domain.Squadra;
 import com.mycompany.footballroyale.domain.Strategie.GenerazioneCalendarioStrategy;
@@ -64,16 +65,16 @@ public class GestoreTorneo {
          
      }
     
-    public Boolean impostaParametriCalendario(List<GiorniSettimanali> giorni, int ppg, Date dataInizio, CriteriCalendario criterio)
+    public List<Partita> impostaParametriCalendario(List<GiorniSettimanali> giorni, int ppg, Date dataInizio, CriteriCalendario criterio)
     {
         
         GenerazioneCalendarioStrategy algoritmoScelto = FootballRoyaleBusinessFactory.getStrategy(criterio);
         List<Prenotazione> prenotazioni = PersistentManager.getInstance().getPrenotazioni();
         competizionecorrente.setDataInizio(dataInizio);
         competizionecorrente.setStrategia(algoritmoScelto);
-        competizionecorrente.generaCalendario(giorni,ppg,dataInizio,prenotazioni);
+        List<Partita> calendario = competizionecorrente.generaCalendario(giorni,ppg,dataInizio,prenotazioni);
   
-        return true;
+        return calendario;
     }
     
     public Boolean ConfermaCampionato()  {

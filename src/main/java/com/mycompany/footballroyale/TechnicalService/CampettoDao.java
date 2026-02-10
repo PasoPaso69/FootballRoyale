@@ -55,7 +55,7 @@ public class CampettoDao {
             // Hibernate restituirà una lista di array di oggetti: List<Object[]>
             String hql = "SELECT c.id, c.nome FROM Campetto c WHERE c.stato = : statoC";
             
-            List<Object[]> risultati = session.createQuery(hql, Object[].class).setParameter("stato", StatoCampetto.Agibile).list();
+            List<Object[]> risultati = session.createQuery(hql, Object[].class).setParameter("statoC", StatoCampetto.Agibile).list();
 
             // Cicliamo sui risultati e riempiamo la mappa
             for (Object[] riga : risultati) {

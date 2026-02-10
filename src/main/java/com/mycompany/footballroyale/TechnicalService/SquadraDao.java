@@ -31,14 +31,17 @@ public static Map<Long, String> getMappaIdNome() {
             
             // Query HQL: selezioniamo solo id e nome (non l'intero oggetto)
             // Hibernate restituirà una lista di array di oggetti: List<Object[]>
-            String hql = "SELECT s.id, s.nome FROM Squadra s";
+            String hql = "SELECT s.Id, " +
+             "CONCAT(s.nome, ' | Kit: ', s.dettaglioMagliaCasa, ' (Casa) / ', s.dettaglioMagliaTrasferta, ' (Ospite)', " +
+             "' | Record: ', s.vittorie, 'V-', s.pareggi, 'P-', s.sconfitte, 'S') " +
+             "FROM Squadra s";
             List<Object[]> risultati = session.createQuery(hql, Object[].class).list();
 
             // Cicliamo sui risultati e riempiamo la mappa
             for (Object[] riga : risultati) {
                 Long id = (Long) riga[0];
-                String nome = (String) riga[1];
-                mappa.put(id, nome);
+                String descrizione = (String) riga[1];
+                mappa.put(id, descrizione);
             }
             
         } catch (Exception e) {

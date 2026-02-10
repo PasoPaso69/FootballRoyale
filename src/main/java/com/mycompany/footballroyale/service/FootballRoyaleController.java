@@ -4,9 +4,15 @@
  */
 package com.mycompany.footballroyale.service;
 
+import com.mycompany.footballroyale.domain.Enum.CriteriCalendario;
+import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
+import com.mycompany.footballroyale.domain.Enum.StatoCompetizione;
+import com.mycompany.footballroyale.domain.Enum.TipoCompetizione;
+import com.mycompany.footballroyale.domain.Partita;
 import com.mycompany.footballroyale.view.CreazioneCampionatoView;
 import com.mycompany.footballroyale.view.CreazioneSquadraView;
 import com.mycompany.footballroyale.view.FootballRoyaleView;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +48,7 @@ public class FootballRoyaleController {
                 avviaModuloCreazioneSquadra();
                 break;
             case 2:
-                // Da implementare
+                avviaModuloCreazioneCampionato();
                 break;
             case 3:
                 footballroyaleview.exitGame();
@@ -81,12 +87,50 @@ public class FootballRoyaleController {
 
      //conferma inserimento
     Boolean ackConferma = this.SquadraView.ConfermaInserimento();
-        if (!ackConferma) {
+        if (ackConferma) { this.creazioneSquadra.ConfermaInserimento();
+        
+        }
+}
+    
+    public void avviaModuloCreazioneCampionato(){
+        
+       Object[] datiIniziali = this.CampionatoView.chiediDatiInizialiCampionato();
+       
+       String nomeCampionato = (String) datiIniziali[0];
+        TipoCompetizione formato = (TipoCompetizione) datiIniziali[1];
+       
+       Map<Long,String> SquadreDisp = this.gestoreTorneo.selezionaFormato(nomeCampionato, formato);
+       
+       Boolean ackmostrasquadre = this.CampionatoView.mostraSquadreDisponibili(SquadreDisp);
+           if (!ackmostrasquadre) {
         return;
         }
-     this.creazioneSquadra.ConfermaInserimento();
-}
+       List<Long> IdSelezionati = this.CampionatoView.selezionaIdSquadre();
+        
+       Map<Long,String> CampettiDisp = this.gestoreTorneo.SelezionaSquadre(IdSelezionati);
+       
+       Boolean ackmostracampetti = this.CampionatoView.mostraCampettiDisponibili(CampettiDisp); 
+          if (!ackmostracampetti) {
+        return;
+        }
+       List<Long> IdCampettiSelezionati = this.CampionatoView.selezionaIdCampetti();
+       
+       this.gestoreTorneo.SelezionaCampetti(IdCampettiSelezionati);
+       
+       Object[] parametricalendario = this.CampionatoView.chiediParametriCalendario();
+       
+       List<GiorniSettimanali> giorni = (List<GiorniSettimanali>) parametricalendario[0];
+       int ppg = (int) parametricalendario[1];
+       Date dataInizio = (Date) parametricalendario[2];
+       CriteriCalendario criterio = (CriteriCalendario) parametricalendario[3];
+       
+       List<Partita> calendario = this.gestoreTorneo.impostaParametriCalendario(giorni, ppg, dataInizio, criterio);
+       
+       Boolean ackConfermaCampionato = this.CampionatoView.mostraCalendarioEConferma(calendario);
+       
+               if (ackConfermaCampionato) { this.gestoreTorneo.ConfermaCampionato();}
     }
+}
     
     
     

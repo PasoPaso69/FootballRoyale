@@ -108,26 +108,22 @@ public class Squadra {
 
     public void setGiocatori(List<Giocatore> g) { this.giocatori = g; }
     
-    public double getOverall(){
-        
-     
+   public double getOverall() {
     int partiteGiocate = vittorie + pareggi + sconfitte;
+    if (partiteGiocate == 0) return 50.0;
 
-        // Caso di default: nessuna partita giocata
-        if (partiteGiocate == 0) {
-            return 50.0;
-        }
+    // Calcoliamo il win rate e il loss rate
+    double winRate = (double) vittorie / partiteGiocate;
+    double lossRate = (double) sconfitte / partiteGiocate;
+    double drawRate = (double) pareggi / partiteGiocate;
 
-        // Calcolo punteggio ottenuto
-        double puntiOttenuti = (vittorie * 3.0) + (pareggi * 1.0);
-        
-        // Calcolo punteggio massimo potenziale
-        double puntiMassimiPossibili = partiteGiocate * 3.0;
+    // Formula: Partiamo da una base, aggiungiamo peso alle vittorie e togliamo alle sconfitte
+    // Il pareggio è considerato neutro/leggermente positivo
+    double score = (winRate * 100) + (drawRate * 20) - (lossRate * 50);
 
-        // Calcolo percentuale (0.0 a 1.0) e trasformazione in scala 0-100
-        double overall = (puntiOttenuti / puntiMassimiPossibili) * 100;
-        return overall;
-    }
+    // Limitiamo il risultato tra 0 e 100
+    return Math.min(100, Math.max(0, score));
+}
     
 
 }

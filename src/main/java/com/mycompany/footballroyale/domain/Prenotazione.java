@@ -8,6 +8,8 @@ import com.mycompany.footballroyale.domain.Enum.statoPrenotazione;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +34,7 @@ public class Prenotazione {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
-    @Column(name = "id_utente")
+    @Column(name = "id_prenotazione")
     private Long Id;
 
     @Column(name = "data")
@@ -43,7 +45,8 @@ public class Prenotazione {
     
     @Column(name = "orarioFine")
     private Time orarioFine;
-
+    
+    @Enumerated(EnumType.STRING) // Salva il nome della costante, non la posizione
     @Column(name = "stato")
     private statoPrenotazione stato;
     

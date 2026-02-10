@@ -39,6 +39,15 @@ public class SistemaSvizzero implements GenerazioneCalendarioStrategy {
         List<Squadra> listaOrdinata = new ArrayList<>(squadre);
         listaOrdinata.sort((s1, s2) -> Double.compare(s2.getOverall(), s1.getOverall()));
         
+        System.out.println("------ RANKING INIZIALE SQUADRE ------");
+        for (int i = 0; i < listaOrdinata.size(); i++) {
+        Squadra s = listaOrdinata.get(i);
+    // Usiamo String.format per vedere solo 2 decimali
+         System.out.println((i + 1) + "° Posto: " + s.getNome() + " - Overall: " + String.format("%.2f", s.getOverall()));
+    }
+        System.out.println("--------------------------------------");
+        
+        
         // Gestione riposo se dispari
         if (listaOrdinata.size() % 2 != 0) {
             listaOrdinata.add(null);
@@ -50,6 +59,8 @@ public class SistemaSvizzero implements GenerazioneCalendarioStrategy {
         
         Calendar cal = Calendar.getInstance();
         cal.setTime(dataInizio);
+        cal.set(java.util.Calendar.HOUR_OF_DAY, 8); 
+        cal.set(java.util.Calendar.MINUTE, 0);
         if (!isGiornoValido(cal, giorni)) avanzaAlProssimoGiornoValido(cal, giorni);
         
         int conteggioPartiteOggi = 0;
@@ -60,12 +71,14 @@ public class SistemaSvizzero implements GenerazioneCalendarioStrategy {
         for (int i = 0; i < giornate; i++) {
             for (int j = 0; j < partitePerGiornata; j++) {
                 
-                int casaIdx = (i + j) % (n - 1);
-                int ospiteIdx = (n - 1 - j + i) % (n - 1);
-                if (j == 0) ospiteIdx = n - 1;
+        int casaIdx = (j * 2 + i) % n;
+        int ospiteIdx = (j * 2 + 1 + i) % n;
 
-                Squadra sCasa = listaOrdinata.get(casaIdx);
-                Squadra sOspite = listaOrdinata.get(ospiteIdx);
+        // Invece della rotazione fissa dell'ultimo, usiamo uno shift fluido
+        Squadra sCasa = listaOrdinata.get(casaIdx);
+        Squadra sOspite = listaOrdinata.get(ospiteIdx);
+
+
 
                 // Se non è un turno di riposo (squadra null)
                 if (sCasa != null && sOspite != null) {

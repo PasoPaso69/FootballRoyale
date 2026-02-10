@@ -21,6 +21,7 @@ public abstract class Competizione {
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
+    @Enumerated(EnumType.STRING) // Salva il nome della costante, non la posizione
     @Column(name = "stato")
     protected StatoCompetizione stato;
     

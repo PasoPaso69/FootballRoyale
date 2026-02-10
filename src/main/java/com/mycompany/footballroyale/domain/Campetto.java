@@ -7,6 +7,8 @@ package com.mycompany.footballroyale.domain;
 import com.mycompany.footballroyale.domain.Enum.StatoCampetto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,6 +38,7 @@ public class Campetto {
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
+    @Enumerated(EnumType.STRING) // Salva il nome della costante, non la posizione
     @Column(name = "stato")
     private StatoCampetto stato;
     
@@ -46,7 +49,8 @@ public class Campetto {
     @JoinColumn(name = "id_prenotazione")
     private List<Prenotazione> prenotazioni;
     
-    public Campetto() {}
+    public Campetto() {
+    this.stato = StatoCampetto.Agibile;}
 
     public Campetto(Long id, String nome,String indirizzo) {
         this.Id = id;

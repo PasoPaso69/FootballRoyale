@@ -26,7 +26,8 @@ public class Partita {
 
     @Column(name = "punteggio_ospiti")
     private int punteggioOspiti;
-
+    
+    @Enumerated(EnumType.STRING) // Salva il nome della costante, non la posizione
     @Column(name = "stato")
     private StatoPartita stato;
 
@@ -113,4 +114,6 @@ public String toString() {
             ", numeroEventi=" + (eventi != null ? eventi.size() : 0) +
             '}';
 }
+
+
 }
