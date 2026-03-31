@@ -2,7 +2,7 @@ package com.mycompany.footballroyale.domain;
 
 import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
 import com.mycompany.footballroyale.domain.Enum.StatoCompetizione;
-import com.mycompany.footballroyale.domain.Strategie.GenerazioneCalendarioStrategy;
+import com.mycompany.footballroyale.domain.StrategieCalendario.GenerazioneCalendarioStrategy;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.ArrayList;
@@ -14,19 +14,22 @@ import java.util.List;
 public abstract class Competizione {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Permette l'autoincremento
     @Column(name = "id_competizione")
     private Long Id;
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Enumerated(EnumType.STRING) // Salva il nome della costante, non la posizione
+    @Enumerated(EnumType.STRING) 
     @Column(name = "stato")
     protected StatoCompetizione stato;
     
     @Transient
     protected GenerazioneCalendarioStrategy strategia;
+    
+    @OneToMany(mappedBy = "competizione", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Classifica> classifica;
 
 
     @Temporal(TemporalType.DATE)
@@ -84,6 +87,11 @@ public abstract class Competizione {
     
     public List<Campetto> getCampetti() { return campettiDisponibili; }
     public void setcampetto(List<Campetto> c) { this.campettiDisponibili = c; }
+    
+    public List<Classifica> getClassifica() { return classifica; }
+    public void setclassifica(List<Classifica> c) { this.classifica = c; }
+    
+    
     
         public void setStrategia(GenerazioneCalendarioStrategy s){this.strategia= s;}
     

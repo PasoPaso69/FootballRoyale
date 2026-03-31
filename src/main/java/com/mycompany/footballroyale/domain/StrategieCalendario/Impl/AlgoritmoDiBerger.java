@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.footballroyale.domain.Strategie.Impl;
+package com.mycompany.footballroyale.domain.StrategieCalendario.Impl;
 import com.mycompany.footballroyale.domain.*;
 import com.mycompany.footballroyale.domain.Enum.*;
 
 
-import com.mycompany.footballroyale.domain.Strategie.GenerazioneCalendarioStrategy;
+import com.mycompany.footballroyale.domain.StrategieCalendario.GenerazioneCalendarioStrategy;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +35,13 @@ public class AlgoritmoDiBerger implements GenerazioneCalendarioStrategy {
         if (lista.size() % 2 != 0) {
             lista.add(null); 
         }
+        System.out.println("------ RANKING INIZIALE SQUADRE ------");
+        for (int i = 0; i < squadre.size(); i++) {
+        Squadra s = squadre.get(i);
+    // Usiamo String.format per vedere solo 2 decimali
+         System.out.println((i + 1) + "° Posto: " + s.getNome() + " - Overall: " + String.format("%.2f", s.getOverall()));
+    }
+        System.out.println("--------------------------------------");
 
         int n = lista.size(); //numero di squadre
         int giornate = n - 1;  //numero di giornate totali
@@ -50,6 +57,8 @@ public class AlgoritmoDiBerger implements GenerazioneCalendarioStrategy {
         */
         Calendar cal = Calendar.getInstance();
         cal.setTime(dataInizio);
+        cal.set(java.util.Calendar.HOUR_OF_DAY, 8); 
+        cal.set(java.util.Calendar.MINUTE, 0);
         
         // Se il giorno di inizio non è tra quelli scelti, ci spostiamo al primo giorno valido
         if (!isGiornoValido(cal, giorni)) {
@@ -91,7 +100,7 @@ public class AlgoritmoDiBerger implements GenerazioneCalendarioStrategy {
                 // Se non è un turno di riposo (squadra null)
                 if (sCasa != null && sOspite != null) {
                     
-                    // Controllo limite partite giornaliere (il tuo input partitePerGiorno)
+                    // Controllo limite partite giornaliere (input partitePerGiorno)
                     if (conteggioPartiteOggi >= partitePerGiorno) {
                         avanzaAlProssimoGiornoValido(cal, giorni);
                         cal.set(cal.HOUR_OF_DAY, 8); 
@@ -163,7 +172,7 @@ public class AlgoritmoDiBerger implements GenerazioneCalendarioStrategy {
                    pnuovo.setStato(statoPrenotazione.COMPLETATA);
                    pnuovo.setOrarioInizio(oraInizio);
                    pnuovo.setOrarioFine(oraFine);
-                   pnuovo.setPartita(p);
+                   //pnuovo.setPartita(p);
                    
                    p.setPrenotazione(pnuovo);
                    prenotazioni.add(pnuovo);
@@ -199,7 +208,7 @@ public class AlgoritmoDiBerger implements GenerazioneCalendarioStrategy {
 private boolean isGiornoValido(Calendar cal, List<GiorniSettimanali> giorni) {
     int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
     for (GiorniSettimanali g : giorni) {
-        // Assicurati che la tua Enum GiorniSettimanali abbia un metodo per il valore numerico
+ 
         // Domenica=1, Lunedì=2, ..., Sabato=7
         if (mappaGiorno(g) == dayOfWeek) return true;
     }

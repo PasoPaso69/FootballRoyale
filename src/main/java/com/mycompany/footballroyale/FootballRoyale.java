@@ -3,7 +3,7 @@ package com.mycompany.footballroyale;
 import com.mycompany.footballroyale.TechnicalService.HibernateService;
 import com.mycompany.footballroyale.TechnicalService.EntityManager;
 import com.mycompany.footballroyale.domain.Campetto;
-import com.mycompany.footballroyale.service.FootballRoyaleController;
+import com.mycompany.footballroyale.Application.FootballRoyaleController;
 import java.util.List;
 
 public class FootballRoyale {

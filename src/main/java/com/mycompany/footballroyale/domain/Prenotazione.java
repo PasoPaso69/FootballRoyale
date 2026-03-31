@@ -50,13 +50,13 @@ public class Prenotazione {
     @Column(name = "stato")
     private statoPrenotazione stato;
     
-    @ManyToOne(cascade = CascadeType.ALL) 
+    @ManyToOne 
     @JoinColumn(name = "Campetto_Prenotazione")
     private Campetto campetto;
     
-    @OneToOne(cascade = CascadeType.ALL) 
-    @JoinColumn(name = "Prenotazione_Partita")
-    private Partita partita;
+    //@OneToOne 
+    //@JoinColumn(name = "Prenotazione_Partita")
+    //private Partita partita;
     
     public Prenotazione(){}
     
@@ -116,13 +116,13 @@ public class Prenotazione {
         return campetto;
     }
 
-    public Partita getPartita() {
-        return partita;
-    }
+   // public Partita getPartita() {
+      //  return partita;
+    //}
 
-    public void setPartita(Partita partita) {
-        this.partita = partita;
-    }
+    //public void setPartita(Partita partita) {
+      //  this.partita = partita;
+    //}
     
     @Override
 public String toString() {

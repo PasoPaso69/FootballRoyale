@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.footballroyale.service;
+package com.mycompany.footballroyale.Application;
 
 import com.mycompany.footballroyale.domain.Enum.CriteriCalendario;
 import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
 import com.mycompany.footballroyale.domain.Enum.StatoCompetizione;
 import com.mycompany.footballroyale.domain.Enum.TipoCompetizione;
 import com.mycompany.footballroyale.domain.Partita;
-import com.mycompany.footballroyale.view.CreazioneCampionatoView;
-import com.mycompany.footballroyale.view.CreazioneSquadraView;
-import com.mycompany.footballroyale.view.FootballRoyaleView;
+import com.mycompany.footballroyale.UI.Creation.CreazioneCampionatoView;
+import com.mycompany.footballroyale.UI.Creation.CreazioneSquadraView;
+import com.mycompany.footballroyale.UI.FootballRoyaleView;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

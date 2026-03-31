@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.footballroyale.domain.Strategie.Impl;
+package com.mycompany.footballroyale.domain.StrategieCalendario.Impl;
 
 import com.mycompany.footballroyale.domain.Campetto;
 import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
@@ -17,7 +17,7 @@ import com.mycompany.footballroyale.domain.Enum.statoPrenotazione;
 import com.mycompany.footballroyale.domain.Partita;
 import com.mycompany.footballroyale.domain.Prenotazione;
 import com.mycompany.footballroyale.domain.Squadra;
-import com.mycompany.footballroyale.domain.Strategie.GenerazioneCalendarioStrategy;
+import com.mycompany.footballroyale.domain.StrategieCalendario.GenerazioneCalendarioStrategy;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -65,25 +65,23 @@ public class SistemaSvizzero implements GenerazioneCalendarioStrategy {
         
         int conteggioPartiteOggi = 0;
         
-        // 2. Logica di Accoppiamento "Svizzero-Berger"
-        // Usiamo la rotazione di Berger sulla lista ORDINATA per forza.
-        // Questo garantisce che nella prima giornata 1-2, 3-4, ecc. (vicini di ranking)
+        // 2. Logica di Accoppiamento "Svizzero"
+        //si fa in modo che la prima si scontri con la secondae cosi via...
+        //poi si fanno giare le squadre come se fosse berger. Ovviamente in modo tale che i primi match siano i più equilibrati
         for (int i = 0; i < giornate; i++) {
             for (int j = 0; j < partitePerGiornata; j++) {
                 
         int casaIdx = (j * 2 + i) % n;
         int ospiteIdx = (j * 2 + 1 + i) % n;
 
-        // Invece della rotazione fissa dell'ultimo, usiamo uno shift fluido
         Squadra sCasa = listaOrdinata.get(casaIdx);
         Squadra sOspite = listaOrdinata.get(ospiteIdx);
-
 
 
                 // Se non è un turno di riposo (squadra null)
                 if (sCasa != null && sOspite != null) {
                     
-                    // Controllo limite partite giornaliere (il tuo input partitePerGiorno)
+                    // Controllo limite partite giornaliere (input partitePerGiorno)
                     if (conteggioPartiteOggi >= ppg) {
                         avanzaAlProssimoGiornoValido(cal, giorni);
                         cal.set(Calendar.HOUR_OF_DAY, 8); 
@@ -98,7 +96,7 @@ public class SistemaSvizzero implements GenerazioneCalendarioStrategy {
     // Entriamo in un ciclo che cerca uno slot finché non lo trova
     while (campettoScelto == null) {
         
-        //  Proviamo a vedere se uno dei campetti è libero all'orario attuale
+        //  si prova a vedere se uno dei campetti è libero all'orario attuale
         for (Campetto c : campetti) {
             if (isLiberoInMemoria(c, cal.getTime(), prenotazioni)) {
                 campettoScelto = c;
@@ -109,14 +107,14 @@ public class SistemaSvizzero implements GenerazioneCalendarioStrategy {
         // 2. Se dopo aver controllato tutti i campetti non abbiamo trovato nulla...
         if (campettoScelto == null) {
             
-            // Controlliamo se siamo arrivati al limite delle 22:00
+            // si controlla se siamo arrivati al limite delle 22:00
             // (Usiamo >= 22 perché se la partita inizia alle 22 finirebbe troppo tardi)
             if (cal.get(java.util.Calendar.HOUR_OF_DAY) >= 22) {
                 
-                // Limite raggiunto: passiamo al prossimo giorno valido
+                // Limite raggiunto: si passa al prossimo giorno valido
                 avanzaAlProssimoGiornoValido(cal, giorni);
                 
-                // RESET ORARIO: Impostiamo l'ora di inizio standard (es. le 15:00 o 18:00)
+                // RESET ORARIO: si imposta l'ora di inizio standard (es. le 15:00 o 18:00)
                 // Altrimenti il nuovo giorno inizierebbe comunque alle 22:00!
                 cal.set(java.util.Calendar.HOUR_OF_DAY, 8); 
                 cal.set(java.util.Calendar.MINUTE, 0);
@@ -145,7 +143,7 @@ public class SistemaSvizzero implements GenerazioneCalendarioStrategy {
                     pnuovo.setStato(statoPrenotazione.COMPLETATA);
                     pnuovo.setOrarioInizio(oraInizio);
                     pnuovo.setOrarioFine(oraFine);
-                    pnuovo.setPartita(p);
+                   // pnuovo.setPartita(p);
 
                     p.setPrenotazione(pnuovo);
                     prenotazioni.add(pnuovo);
@@ -171,27 +169,27 @@ public class SistemaSvizzero implements GenerazioneCalendarioStrategy {
 private boolean isGiornoValido(java.util.Calendar cal, List<GiorniSettimanali> giorni) {
     int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
     for (GiorniSettimanali g : giorni) {
-        // Assicurati che la tua Enum GiorniSettimanali abbia un metodo per il valore numerico
-        // Domenica=1, Lunedì=2, ..., Sabato=7
+
+        
         if (mappaGiorno(g) == dayOfWeek) return true;
     }
     return false;
 }
     private int mappaGiorno(GiorniSettimanali g) {
     return switch (g) {
-        case Lunedi    -> java.util.Calendar.MONDAY;    // Vale 2
-        case Martedi   -> java.util.Calendar.TUESDAY;   // Vale 3
-        case Mercoledi -> java.util.Calendar.WEDNESDAY; // Vale 4
-        case Giovedi   -> java.util.Calendar.THURSDAY;  // Vale 5
-        case Venerdi   -> java.util.Calendar.FRIDAY;    // Vale 6
-        case Sabato    -> java.util.Calendar.SATURDAY;  // Vale 7
-        case Domenica  -> java.util.Calendar.SUNDAY;    // Vale 1
+        case Lunedi    -> java.util.Calendar.MONDAY;    
+        case Martedi   -> java.util.Calendar.TUESDAY;   
+        case Mercoledi -> java.util.Calendar.WEDNESDAY; 
+        case Giovedi   -> java.util.Calendar.THURSDAY;  
+        case Venerdi   -> java.util.Calendar.FRIDAY;    
+        case Sabato    -> java.util.Calendar.SATURDAY;  
+        case Domenica  -> java.util.Calendar.SUNDAY;    
     };
 
     }
        
     private boolean isLiberoInMemoria(Campetto c, Date inizioPartita, List<Prenotazione> prenotazioni) {
-    // Usiamo Calendar per azzerare ore/minuti e confrontare solo il giorno
+    // si usa Calendar per azzerare ore/minuti e confrontare solo il giorno
     java.util.Calendar cal1 = java.util.Calendar.getInstance();
     cal1.setTime(inizioPartita);
     

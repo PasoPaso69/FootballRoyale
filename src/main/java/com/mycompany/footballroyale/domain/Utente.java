@@ -11,9 +11,9 @@ import java.util.List;
 public abstract class Utente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name = "id_utente")
-    private Long id; // Se vuoi l'auto-incremento, servirebbe un int/long, altrimenti lo gestisci a mano
+    private Long id;
 
     @Column(name = "nome", nullable = false, length = 50)
     private String nome;
@@ -24,7 +24,7 @@ public abstract class Utente {
     @Column(name = "citta_nascita")
     private String cittaDiNascita;
 
-    @Temporal(TemporalType.DATE) // Specifica che nel DB salva solo la data (senza orario)
+    @Temporal(TemporalType.DATE) // Specifica che nel DB salva solo la data 
     @Column(name = "data_nascita")
     private Date dataNascita;
 

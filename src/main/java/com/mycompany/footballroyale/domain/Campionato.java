@@ -2,7 +2,6 @@ package com.mycompany.footballroyale.domain;
 
 import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
 import com.mycompany.footballroyale.domain.Enum.StatoCompetizione;
-import com.mycompany.footballroyale.domain.Strategie.GenerazioneCalendarioStrategy;
 import jakarta.persistence.*;
 import java.util.*;
 
@@ -56,16 +55,18 @@ public class Campionato extends Competizione {
     
     @Override
     public List<Partita> generaCalendario(List<GiorniSettimanali> giorni,int ppg,Date DataInizio,List<Prenotazione> prenotazioni) {
+        
+        List<Prenotazione> CopiaPrenotazioni = new ArrayList(prenotazioni);
         List<Partita> partiteGenerate = strategia.generaCalendario(
             this.squadrePartecipanti, 
             this.campettiDisponibili, 
             DataInizio, 
             giorni, 
             ppg,
-            prenotazioni
+            CopiaPrenotazioni
               
         );
-// 2. SETTARE LA COMPETIZIONE (Il pezzo mancante)
+// 2. SETTARE LA COMPETIZIONE
         for (Partita p : partiteGenerate) {
             p.setCompetizione(this); // 'this' è l'oggetto Campionato corrente
         }

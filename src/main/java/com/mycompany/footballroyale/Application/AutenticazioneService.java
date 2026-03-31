@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.footballroyale.service;
+package com.mycompany.footballroyale.Application;
 
 /**
  *
@@ -24,7 +24,7 @@ public class AutenticazioneService {
             return null;
         }
 
-        // 2. Grazie al polimorfismo, chiamiamo getPassword() direttamente!
+        // 2. chiamiamo getPassword() direttamente
         // Hibernate sa già se deve andare a prenderla nella tabella Admin o Giocatore.
         String hashDalDb = utente.getPassword();
 

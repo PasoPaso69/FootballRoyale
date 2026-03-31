@@ -8,7 +8,7 @@ import jakarta.persistence.*; // Necessario per Hibernate 6+
 public class EventoGara {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Permette l'autoincremento
     @Column(name = "id_evento")
     private Long Id;
 

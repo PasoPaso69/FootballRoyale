@@ -5,6 +5,7 @@
 package com.mycompany.footballroyale.TechnicalService;
 
 import com.mycompany.footballroyale.domain.Campetto;
+import com.mycompany.footballroyale.domain.Competizione;
 import com.mycompany.footballroyale.domain.Foto;
 import com.mycompany.footballroyale.domain.Giocatore;
 import com.mycompany.footballroyale.domain.Prenotazione;
@@ -68,5 +69,8 @@ public class PersistentManager {
     
     public List<Giocatore> getGiocatorePerId(List<Long> IdSelezionati){
         return GiocatoreDao.getGiocatorePerID(IdSelezionati);}
+    
+    public List<Competizione> getTutteLeCompetizioni(){
+        return CompetizioneDao.getTutteLeCompetizioni();}
         
 }

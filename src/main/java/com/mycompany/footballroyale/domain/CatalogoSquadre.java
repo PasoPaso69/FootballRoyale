@@ -10,8 +10,6 @@ package com.mycompany.footballroyale.domain;
  */
 public class CatalogoSquadre {
 
-    // Se non è nel DB, la lista squadre non viene gestita da Hibernate qui, 
-    // ma può essere passata o recuperata al bisogno.
     
     public CatalogoSquadre() {
     }

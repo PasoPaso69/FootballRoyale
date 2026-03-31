@@ -31,23 +31,23 @@ import java.util.List;
 public class Campetto {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Permette l'autoincremento
     @Column(name = "id_campetto")
     private Long Id;
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Enumerated(EnumType.STRING) // Salva il nome della costante, non la posizione
+    @Enumerated(EnumType.STRING)
     @Column(name = "stato")
     private StatoCampetto stato;
     
      @Column(name = "indirizzo")
     private String indirizzo;
          
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_prenotazione")
-    private List<Prenotazione> prenotazioni;
+    //@OneToMany(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "id_prenotazione")
+    //private List<Prenotazione> prenotazioni;
     
     public Campetto() {
     this.stato = StatoCampetto.Agibile;}
@@ -69,8 +69,8 @@ public class Campetto {
     public StatoCampetto getStato() { return stato; }
     public void setStato(StatoCampetto stato) { this.stato = stato; }
     
-   public List<Prenotazione> getPrenotazioni() {return this.prenotazioni;}
-   public void setPrenotazioni(List<Prenotazione> p) {this.prenotazioni=p;}
+   //public List<Prenotazione> getPrenotazioni() {return this.prenotazioni;}
+   //public void setPrenotazioni(List<Prenotazione> p) {this.prenotazioni=p;}
    
   
     @Override

@@ -10,7 +10,7 @@ import java.util.*;
 public class Partita {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //permette l'autoincremento
     @Column(name = "id_partita")
     private Long Id;
 
@@ -27,7 +27,7 @@ public class Partita {
     @Column(name = "punteggio_ospiti")
     private int punteggioOspiti;
     
-    @Enumerated(EnumType.STRING) // Salva il nome della costante, non la posizione
+    @Enumerated(EnumType.STRING) 
     @Column(name = "stato")
     private StatoPartita stato;
 

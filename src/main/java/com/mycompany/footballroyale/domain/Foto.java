@@ -9,7 +9,7 @@ import java.util.Date;
 public class Foto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // permette l'autoincremento
     @Column(name = "id_foto")
     private Long Id;
 

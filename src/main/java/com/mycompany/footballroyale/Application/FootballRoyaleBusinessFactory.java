@@ -2,18 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.footballroyale.service;
+package com.mycompany.footballroyale.Application;
 
 import com.mycompany.footballroyale.domain.Enum.CriteriCalendario;
-import com.mycompany.footballroyale.domain.Strategie.GenerazioneCalendarioStrategy;
-import com.mycompany.footballroyale.domain.Strategie.Impl.AlgoritmoDiBerger;
-import com.mycompany.footballroyale.domain.Strategie.Impl.SistemaSvizzero;
+import com.mycompany.footballroyale.domain.StrategieCalendario.GenerazioneCalendarioStrategy;
+import com.mycompany.footballroyale.domain.StrategieCalendario.Impl.AlgoritmoDiBerger;
+import com.mycompany.footballroyale.domain.StrategieCalendario.Impl.SistemaSvizzero;
 
 /**
  *
  * @author Lenovo
  */
-//dovrebbe essere classe Singleton/Factory che serve per creare i due gestori
 public class FootballRoyaleBusinessFactory {
     
     

@@ -55,8 +55,8 @@ public class OperatorePartita extends Utente {
     @Override
 public String toString() {
     return "OperatorePartita{" +
-            super.toString() + // Richiama Nome, Cognome, Email dalla classe Utente
-            ", password='****'" + // Oscuriamo la password per motivi di sicurezza
+            super.toString() + 
+            ", password='****'" + 
             '}';
 }
 }

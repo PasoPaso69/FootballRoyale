@@ -46,15 +46,6 @@ public class Amministratore extends Utente {
                 '}';
     }
 
- 
- public void creazioneCampionato() {
-        // Implementazione: Chiama il GestoreTorneo
-        // Es: GestoreTorneo.getInstance().creaNuovaCompetizione();
-    }
 
-    public void creazioneSquadra() {
-        // Implementazione: Chiama il GestoreCreazioneSquadra
-        // Es: GestoreCreazioneSquadra.getInstance().iniziaCreazione();
-    }
 }
 
