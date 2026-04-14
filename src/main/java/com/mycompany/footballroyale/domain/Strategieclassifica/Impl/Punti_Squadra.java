@@ -32,13 +32,13 @@ public class Punti_Squadra implements CriterioOrdinamentoStrategy<Squadra>{
                     if(p.getPunteggioCasa()> p.getPunteggioOspiti()){
                         punteggi=punteggi+3;
                     } else if (p.getPunteggioCasa()== p.getPunteggioOspiti()){
-                        punteggi=punteggi++;
+                        punteggi++;
                     }
                 } else if (p.getSquadraOspite().equals(squadra)) {
                      if(p.getPunteggioOspiti()> p.getPunteggioCasa()){
                         punteggi=punteggi+3;
                     } else if (p.getPunteggioOspiti()== p.getPunteggioCasa()){
-                        punteggi=punteggi++;
+                        punteggi++;
                     }
                 }
             }

@@ -124,6 +124,11 @@ public class Squadra {
     // Limitiamo il risultato tra 0 e 100
     return Math.min(100, Math.max(0, score));
 }
+   @Override
+      
+public String toString() {
+    return this.nome;
+}
     
 
 }

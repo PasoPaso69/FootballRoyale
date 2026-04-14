@@ -12,6 +12,11 @@ import com.mycompany.footballroyale.domain.Partita;
 import com.mycompany.footballroyale.UI.Creation.CreazioneCampionatoView;
 import com.mycompany.footballroyale.UI.Creation.CreazioneSquadraView;
 import com.mycompany.footballroyale.UI.FootballRoyaleView;
+import com.mycompany.footballroyale.UI.Statistiche.StatisticheFrame;
+import com.mycompany.footballroyale.domain.Competizione;
+import com.mycompany.footballroyale.domain.Enum.CriterioClassifica;
+import com.mycompany.footballroyale.domain.Enum.CriterioVisual;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +31,8 @@ public class FootballRoyaleController {
     private final CreazioneCampionatoView CampionatoView;
     private final CreazioneSquadraView SquadraView;
     private final FootballRoyaleView footballroyaleview;
+    private final GestoreClassifica gestoreclassifica;
+    private final StatisticheFrame statisticheframe;
     
     public FootballRoyaleController() {
         this.gestoreTorneo = new GestoreTorneo();
@@ -33,6 +40,8 @@ public class FootballRoyaleController {
         this.CampionatoView = new CreazioneCampionatoView();
         this.SquadraView = new CreazioneSquadraView();
         this.footballroyaleview = new FootballRoyaleView();
+        this.gestoreclassifica=new GestoreClassifica();
+        this.statisticheframe=new StatisticheFrame();
    
     }
     
@@ -51,6 +60,9 @@ public class FootballRoyaleController {
                 avviaModuloCreazioneCampionato();
                 break;
             case 3:
+                avviaGenerazioneStatistiche();
+                break;
+            case 4:
                 footballroyaleview.exitGame();
                 running = false; // Ferma il ciclo e chiude l'app
                 break;
@@ -130,6 +142,54 @@ public class FootballRoyaleController {
        
                if (ackConfermaCampionato) { this.gestoreTorneo.ConfermaCampionato();}
     }
+    
+    public void avviaGenerazioneStatistiche() {
+        
+        //try {
+          
+            // Il gestore prepara la classifica e recupera le competizioni dal DB
+            List<Competizione> competizioniDisponibili = gestoreclassifica.AvviaVisualizzazioneStatistiche();
+            
+            if (competizioniDisponibili == null || competizioniDisponibili.isEmpty()) {
+                System.out.println("Nessuna competizione trovata nel sistema.");
+                return; // Interrompe il flusso se non c'è nulla da elaborare
+            }
+
+            // Il frame mostra le competizioni e l'utente sceglie l'oggetto
+            Competizione competizioneScelta = statisticheframe.mostraSchermataSelezioneCompetizione(competizioniDisponibili);
+            
+            // Il controller passa la scelta al gestore
+            gestoreclassifica.SelezionaCompetizione(competizioneScelta);
+
+
+
+            // Il frame chiede Squadre o Giocatori
+            String targetScelto = statisticheframe.mostraSchermataSelezioneTarget();
+            
+            // Il controller passa la stringa al gestore
+            gestoreclassifica.SelezionaTarget(targetScelto);
+
+
+            // Il frame mostra i criteri in base al target e restituisce l'Enum
+            CriterioClassifica criterioScelto = statisticheframe.mostraSchermataSelezioneCriterio(targetScelto);
+            
+            // Il gestore calcola la classifica usando la Strategy corretta e restituisce la Mappa
+            Map<?, Integer> mappaClassifica = gestoreclassifica.SelezionaCriterio(criterioScelto);
+
+
+
+            // Trasformiamo la mappa del dominio in una lista ordinata per la UI
+            List<Map.Entry<?, Integer>> listaPerStampa = new ArrayList<>(mappaClassifica.entrySet());
+
+            // Infine, diciamo al frame di stampare. 
+            // Qui passo "STAMPA_VIDEO" come esempio, assumendo che tu abbia l'Enum CriterioVisual
+            statisticheframe.SelezionaMetodo(CriterioVisual.stampa_a_video, listaPerStampa, criterioScelto);
+
+        }// catch (Exception e) {
+            // Una gestione basica degli errori per evitare che un problema blocchi l'app
+            //System.out.println("\n⚠️ Si è verificato un errore durante la generazione delle statistiche: " + e.getMessage());
+        //}
+    //}
 }
     
     

@@ -28,6 +28,7 @@ public abstract class Competizione {
     @Transient
     protected GenerazioneCalendarioStrategy strategia;
     
+    @Transient
     @OneToMany(mappedBy = "competizione", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Classifica> classifica;
 
@@ -37,7 +38,7 @@ public abstract class Competizione {
     private Date dataInizio;
 
     // Relazione Molti-a-Molti: Una competizione ha molte squadre, una squadra partecipa a molte competizioni
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
         name = "partecipazioni", // Nome della tabella di giunzione su XAMPP
         joinColumns = @JoinColumn(name = "id_competizione"),
@@ -54,7 +55,7 @@ public abstract class Competizione {
     protected List<Campetto> campettiDisponibili = new ArrayList<>();
 
     // Relazione Uno-a-Molti: Una competizione ha molte partite (il calendario)
-    @OneToMany(mappedBy = "competizione", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "competizione", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     protected List<Partita> calendario = new ArrayList<>();
     
     public Competizione() {}

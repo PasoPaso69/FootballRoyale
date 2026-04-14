@@ -22,7 +22,8 @@ public class FootballRoyaleView {
         System.out.println("|=== FOOTBALL ROYALE ===|");
         System.out.println("|1. Crea Squadra       |");
         System.out.println("|2. Crea Campionato   |");
-        System.out.println("|3. chiudi                |");
+        System.out.println("|3. Visualizza Classifica  |");
+        System.out.println("|4. chiudi                |");
         System.out.println("|=======================|");
         System.out.print("Seleziona un'opzione:    ");
 

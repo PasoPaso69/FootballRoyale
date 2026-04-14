@@ -27,7 +27,7 @@ public class Goal_Giocatori implements CriterioOrdinamentoStrategy <Giocatore> {
                 int i=0;
                 for(EventoGara e : g.getEvento()){
                     if(e.getPartita().getCompetizione()==c & e.getTipologia()== TipologiaEvento.Goal ){
-                        i=i++;
+                        i++;
                     }
                     ClassificaFinale.put(g, i);
                 }
