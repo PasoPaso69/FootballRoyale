@@ -2,7 +2,7 @@ package com.mycompany.footballroyale.domain;
 
 import jakarta.persistence.*; // Necessario per Hibernate 6+
 import java.sql.Blob;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "foto")

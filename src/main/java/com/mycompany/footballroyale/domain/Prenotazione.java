@@ -5,24 +5,19 @@
 package com.mycompany.footballroyale.domain;
 
 import com.mycompany.footballroyale.domain.Enum.statoPrenotazione;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 /**
  *
@@ -33,7 +28,7 @@ import java.util.List;
 public class Prenotazione {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // <--- Fondamentale per l'autoincremento
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Permette l'autoincremento
     @Column(name = "id_prenotazione")
     private Long Id;
 
@@ -54,17 +49,13 @@ public class Prenotazione {
     @JoinColumn(name = "Campetto_Prenotazione")
     private Campetto campetto;
     
-    //@OneToOne 
-    //@JoinColumn(name = "Prenotazione_Partita")
-    //private Partita partita;
-    
     public Prenotazione(){}
     
     public Prenotazione(Date data, Time orarioInizio, Time orarioFine) {
         this.data = data;
         this.orarioInizio = orarioInizio;
         this.orarioFine = orarioFine;
-        this.stato = statoPrenotazione.PENDING; // Impostazione di default suggerita
+        this.stato = statoPrenotazione.PENDING; 
     }
 
     public Long getId() {

@@ -38,14 +38,14 @@ public class Cartellini_Giocatori implements CriterioOrdinamentoStrategy <Giocat
             
              List<Map.Entry<Giocatore, Integer>> listaDaOrdinare = new ArrayList<>(ClassificaFinale.entrySet());
 
-    // 5. Ordiniamo la lista (Decrescente: dal più grande al più piccolo)
+    //Ordiniamo la lista (Decrescente: dal più grande al più piccolo)
     listaDaOrdinare.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
 
-    // 6. USIAMO LINKEDHASHMAP per "fissare" l'ordine
+    //  USIAMO LINKEDHASHMAP per "fissare" l'ordine
     Map<Giocatore, Integer> CartelliniOrdinato = new LinkedHashMap<>();
     
     for (Map.Entry<Giocatore, Integer> entry : listaDaOrdinare) {
-        //7. Inseriamo gli elementi uno per uno, dal primo all'ultimo
+        //Inseriamo gli elementi uno per uno, dal primo all'ultimo
         CartelliniOrdinato.put(entry.getKey(), entry.getValue());
     }
 

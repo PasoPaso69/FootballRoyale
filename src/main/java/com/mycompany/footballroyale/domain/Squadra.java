@@ -38,7 +38,7 @@ public class Squadra {
     @Column(name = "sconfitte", columnDefinition = "int default 0")
     private int sconfitte;
     
-    @OneToMany(mappedBy = "squadra", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "squadra", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Giocatore> giocatori = new ArrayList<>();
 
     // Costruttore vuoto obbligatorio

@@ -19,7 +19,7 @@ import java.util.Scanner;
  */
 public class StatisticheFrame {
     
-            private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     
     public Competizione mostraSchermataSelezioneCompetizione(List<Competizione> competizioni) {
@@ -30,7 +30,7 @@ public class StatisticheFrame {
     // Mostriamo la lista numerata
     for (int i = 0; i < competizioni.size(); i++) {
         Competizione c = competizioni.get(i);
-        // Assumiamo che Competizione abbia un metodo getNome()
+       
         System.out.printf("[%d] %-30s%n", (i + 1), c.getNome());
     }
     
@@ -104,6 +104,24 @@ public class StatisticheFrame {
         int scelta = chiediNumero(1, 2);
         criterioScelto = (scelta == 1) ? CriterioClassifica.Goal_Giocatori : CriterioClassifica.Cartellini_Giocatori;
     }
+
+    System.out.println("Criterio selezionato: " + criterioScelto.name());
+    return criterioScelto;
+}
+    
+    
+     public CriterioVisual mostraSchermataSelezioneCriterioStampa() {
+    System.out.println("\n" + "=".repeat(50));
+    System.out.printf("  CRITERI DI STAMPA DISPONIBILI \n ");
+    System.out.println("=".repeat(50));
+
+    CriterioVisual criterioScelto = null;
+
+        System.out.println("[1] STAMPA A VIDEO ");
+        System.out.println("[2] GRAFICO A BARRE");
+        
+        int scelta = chiediNumero(1, 2);
+        criterioScelto = (scelta == 1) ? CriterioVisual.stampa_a_video : CriterioVisual.grafico_a_barre;
 
     System.out.println("Criterio selezionato: " + criterioScelto.name());
     return criterioScelto;

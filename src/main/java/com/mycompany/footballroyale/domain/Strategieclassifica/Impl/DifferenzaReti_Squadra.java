@@ -23,15 +23,15 @@ public class DifferenzaReti_Squadra implements CriterioOrdinamentoStrategy<Squad
     
    @Override
     public Map<Squadra, Integer> Ordina(List<Squadra> Target, Competizione c) {
-        // 1. Creiamo una mappa per memorizzare la differenza reti di ogni squadra
+        // Creiamo una mappa per memorizzare la differenza reti di ogni squadra
         Map<Squadra, Integer> differenzaRetiMap = new HashMap<>();
 
-        // 2. Calcoliamo la differenza reti per ogni squadra nel Target
+        // Calcoliamo la differenza reti per ogni squadra nel Target
         for (Squadra squadra : Target) {
             int golFatti = 0;
             int golSubiti = 0;
 
-            //3. Iteriamo su tutte le partite della competizione data
+            // Iteriamo su tutte le partite della competizione data
             for (Partita p : c.getCalendario() ) { 
                 if (p.getSquadraCasa().equals(squadra)) {
                     golFatti += p.getPunteggioCasa();
@@ -43,17 +43,17 @@ public class DifferenzaReti_Squadra implements CriterioOrdinamentoStrategy<Squad
             }
             differenzaRetiMap.put(squadra, golFatti - golSubiti);
         }
-        // 4. Creiamo una lista dalle entry della mappa per poterle ordinare
+        // Creiamo una lista dalle entry della mappa per poterle ordinare
     List<Map.Entry<Squadra, Integer>> listaDaOrdinare = new ArrayList<>(differenzaRetiMap.entrySet());
 
-    // 5. Ordiniamo la lista (Decrescente: dal più grande al più piccolo)
+    // Ordiniamo la lista (Decrescente: dal più grande al più piccolo)
     listaDaOrdinare.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
 
-    // 6. USIAMO LINKEDHASHMAP per "fissare" l'ordine
+    // USIAMO LINKEDHASHMAP per "fissare" l'ordine
     Map<Squadra, Integer> differenzaretiOrdinato = new LinkedHashMap<>();
     
     for (Map.Entry<Squadra, Integer> entry : listaDaOrdinare) {
-        //7. Inseriamo gli elementi uno per uno, dal primo all'ultimo
+        // Inseriamo gli elementi uno per uno, dal primo all'ultimo
         differenzaretiOrdinato.put(entry.getKey(), entry.getValue());
     }
 

@@ -51,8 +51,8 @@ public class CreazioneSquadraView {
             // Stampiamo l'ID in evidenza
             System.out.println(" >> ID SELEZIONE: [" + id + "]");
             
-            // Stampiamo la stringa "cucinata" dal DB
-            // La rimpiazziamo leggermente per renderla più ariosa se necessario
+            
+           
             System.out.println("    DETTAGLI: " + info);
             
             System.out.println("-".repeat(65));
@@ -111,7 +111,7 @@ public List<Long> selezionaIdGiocatori() {
             System.out.println(" [!] Errore: Inserire solo numeri (0 o 1).");
         }
         
-        scanner.nextLine(); // Pulisce il buffer dello scanner (IMPORTANTE)
+        scanner.nextLine(); // Pulisce il buffer dello scanner
     }
 
     if (scelta == 1) {

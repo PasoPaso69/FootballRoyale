@@ -20,8 +20,7 @@ public class OperatorePartita extends Utente {
     @Column(name = "password", nullable = false)
     private String password;
     
-        @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_Evento")
+    @OneToMany(mappedBy = "operatore", fetch = FetchType.LAZY)
     private List<EventoGara> EventiInseriti;
         
         
@@ -43,7 +42,7 @@ public class OperatorePartita extends Utente {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     
-        // Hash automatico della password prima del salvataggio su XAMPP
+    // Hash automatico della password prima del salvataggio su XAMPP
     @PrePersist
     @PreUpdate
     private void hashPassword() {

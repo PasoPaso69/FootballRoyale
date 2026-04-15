@@ -6,7 +6,6 @@ package com.mycompany.footballroyale.Application;
 
 import com.mycompany.footballroyale.domain.Enum.CriteriCalendario;
 import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
-import com.mycompany.footballroyale.domain.Enum.StatoCompetizione;
 import com.mycompany.footballroyale.domain.Enum.TipoCompetizione;
 import com.mycompany.footballroyale.domain.Partita;
 import com.mycompany.footballroyale.UI.Creation.CreazioneCampionatoView;
@@ -73,10 +72,10 @@ public class FootballRoyaleController {
     }
    }
     private void avviaModuloCreazioneSquadra() {
-    // 1. Chiedi i dati alla View
+    //  Chiede i dati alla View
     String[] datiIniziali = this.SquadraView.chiediDatiInizialiSquadra();
     
-    // 2. Invia i dati al Gestore e ricevi la mappa dei giocatori disponibili
+    // Invia i dati al Gestore e ricevi la mappa dei giocatori disponibili
     // datiIniziali[0] = Nome, [1] = Casa, [2] = Trasferta
     Map<Long, String> giocatoriDisp = this.creazioneSquadra.InserisciDati(
         datiIniziali[0], 
@@ -84,7 +83,7 @@ public class FootballRoyaleController {
         datiIniziali[2]
     );
     
-    // 3. Mostra all'utente la lista dei giocatori ricevuta
+    //  Mostra all'utente la lista dei giocatori ricevuta
      Boolean Ackmostragiocatori = this.SquadraView.mostraGiocatoriDisponibili(giocatoriDisp);
          // SE ackMostraGiocatori è false (lista vuota), interrompo tutto e torno al menu
     if (!Ackmostragiocatori) {
@@ -145,7 +144,7 @@ public class FootballRoyaleController {
     
     public void avviaGenerazioneStatistiche() {
         
-        //try {
+        try {
           
             // Il gestore prepara la classifica e recupera le competizioni dal DB
             List<Competizione> competizioniDisponibili = gestoreclassifica.AvviaVisualizzazioneStatistiche();
@@ -180,16 +179,18 @@ public class FootballRoyaleController {
 
             // Trasformiamo la mappa del dominio in una lista ordinata per la UI
             List<Map.Entry<?, Integer>> listaPerStampa = new ArrayList<>(mappaClassifica.entrySet());
+            
+            //Il frame mostra le possibili selezioni di stampa
+            CriterioVisual CriterioVisualizzazione = statisticheframe.mostraSchermataSelezioneCriterioStampa();
+            
+            // Infine diciamo al frame di stampare. 
+            statisticheframe.SelezionaMetodo(CriterioVisualizzazione, listaPerStampa, criterioScelto);
 
-            // Infine, diciamo al frame di stampare. 
-            // Qui passo "STAMPA_VIDEO" come esempio, assumendo che tu abbia l'Enum CriterioVisual
-            statisticheframe.SelezionaMetodo(CriterioVisual.stampa_a_video, listaPerStampa, criterioScelto);
-
-        }// catch (Exception e) {
+        } catch (Exception e) {
             // Una gestione basica degli errori per evitare che un problema blocchi l'app
-            //System.out.println("\n⚠️ Si è verificato un errore durante la generazione delle statistiche: " + e.getMessage());
-        //}
-    //}
+            System.out.println("\n⚠️ Si è verificato un errore durante la generazione delle statistiche: " + e.getMessage());
+        }
+    }
 }
     
     

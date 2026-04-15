@@ -10,4 +10,5 @@ package com.mycompany.footballroyale.domain.Enum;
  */
 public enum CriterioVisual {
     stampa_a_video,
+    grafico_a_barre, 
 }

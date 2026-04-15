@@ -27,11 +27,11 @@ public class CreazioneCampionatoView {
    public Object[] chiediDatiInizialiCampionato() {
     System.out.println("\n--- INSERIMENTO DATI NUOVA COMPETIZIONE ---");
     
-    // 1. Acquisizione del Nome
+    // Acquisizione del Nome
     System.out.print("Inserisci il Nome del Campionato (es. Champions League): ");
     String nome = scanner.nextLine();
 
-    // 2. Definizione dei formati disponibili
+    // Definizione dei formati disponibili
     TipoCompetizione[] formati = {
         TipoCompetizione.CAMPIONATO, 
         TipoCompetizione.ELIMINAZIONE_DIRETTA 
@@ -42,7 +42,7 @@ public class CreazioneCampionatoView {
         System.out.println(" [" + (i + 1) + "] " + formati[i]);
     }
 
-    // 3. Selezione del Formato con validazione
+    //  Selezione del Formato con validazione
     int scelta = -1;
     while (scelta < 1 || scelta > formati.length) {
         System.out.print("Seleziona il numero del formato: ");
@@ -75,12 +75,12 @@ public class CreazioneCampionatoView {
         System.out.println(" [!] Nessuna Squadra disponibile al momento.");
         System.out.println("\nPremi INVIO per tornare al menu principale...");
         
-        // Pulizia buffer e attesa tasto invio
+        //Pulizia buffer e attesa tasto invio
         scanner.nextLine();
         return false;
     } else {
         squadre.forEach((id, info) -> {
-            // Stampiamo l'ID in evidenza
+            //Stampiamo l'ID in evidenza
             System.out.println(" >> ID SELEZIONE: [" + id + "]");
             
             System.out.println("    DETTAGLI: " + info);
@@ -183,7 +183,7 @@ public class CreazioneCampionatoView {
     System.out.println("   CONFIGURAZIONE CALENDARIO COMPETIZIONE    ");
     System.out.println("=".repeat(45));
 
-    // 1. Inserimento Data di Inizio
+    //  Inserimento Data di Inizio
     Date dataInizio = null;
     while (dataInizio == null) {
         System.out.print(" -> Inserisci data inizio (gg/mm/aaaa): ");
@@ -198,7 +198,7 @@ public class CreazioneCampionatoView {
         }
     }
 
-    // 2. Partite Per Giorno (ppg)
+    //  Partite Per Giorno 
     int ppg = -1;
     while (ppg < 1 || ppg > 10) {
         System.out.print(" -> Quante partite al giorno si giocano? (1-10): ");
@@ -210,7 +210,7 @@ public class CreazioneCampionatoView {
         scanner.nextLine();
     }
 
-    // 3. Selezione Criterio (Enum CriteriCalendario)
+    //  Selezione Criterio 
     System.out.println("\n--- Seleziona Criterio Generazione ---");
     CriteriCalendario[] criteri = CriteriCalendario.values();
     for (int i = 0; i < criteri.length; i++) {
@@ -220,7 +220,7 @@ public class CreazioneCampionatoView {
     scanner.nextLine();
     CriteriCalendario criterioScelto = criteri[sceltaC - 1];
 
-    // 4. Selezione Giorni Settimanali (Multipla)
+    //  Selezione Giorni Settimanali 
     List<GiorniSettimanali> giorniScelti = new ArrayList<>();
     System.out.println("\n--- Seleziona i giorni in cui si gioca (es: 1,3,5) ---");
     GiorniSettimanali[] tuttiGiorni = GiorniSettimanali.values();

@@ -4,15 +4,11 @@
  */
 package com.mycompany.footballroyale.UI.Statistiche;
 
+import com.mycompany.footballroyale.UI.Statistiche.StrategieView.Impl.GraficoBarre;
 import com.mycompany.footballroyale.UI.Statistiche.StrategieView.Impl.StampaVideo;
 import com.mycompany.footballroyale.UI.Statistiche.StrategieView.VisualStrategy;
-import com.mycompany.footballroyale.domain.Enum.CriteriCalendario;
-import static com.mycompany.footballroyale.domain.Enum.CriteriCalendario.ALGORITMO_DI_BERGER;
-import static com.mycompany.footballroyale.domain.Enum.CriteriCalendario.SISTEMA_SVIZZERO;
 import com.mycompany.footballroyale.domain.Enum.CriterioVisual;
-import com.mycompany.footballroyale.domain.StrategieCalendario.GenerazioneCalendarioStrategy;
-import com.mycompany.footballroyale.domain.StrategieCalendario.Impl.AlgoritmoDiBerger;
-import com.mycompany.footballroyale.domain.StrategieCalendario.Impl.SistemaSvizzero;
+
 
 /**
  *
@@ -27,6 +23,7 @@ public class VisualFactory {
 
         return switch (criterio) {
             case stampa_a_video -> new StampaVideo();
+            case grafico_a_barre -> new GraficoBarre();
             
             default -> throw new IllegalArgumentException("Algoritmo non riconosciuto: " + criterio);
         };

@@ -19,14 +19,14 @@ import java.util.Map;
 public class Punti_Squadra implements CriterioOrdinamentoStrategy<Squadra>{
      public Map<Squadra,Integer> Ordina(List<Squadra> Target, Competizione c){
              
-             // 1. Creiamo una mappa per memorizzare la differenza reti di ogni squadra
+             // Creiamo una mappa per memorizzare la differenza reti di ogni squadra
         Map<Squadra, Integer> puntiSquadra = new HashMap<>();
 
-        // 2. Calcoliamo la differenza reti per ogni squadra nel Target
+        // Calcoliamo la differenza reti per ogni squadra nel Target
         for (Squadra squadra : Target) {
             int punteggi=0;
 
-            //3. Iteriamo su tutte le partite della competizione data
+            // Iteriamo su tutte le partite della competizione data
             for (Partita p : c.getCalendario() ) { 
                 if (p.getSquadraCasa().equals(squadra)) {
                     if(p.getPunteggioCasa()> p.getPunteggioOspiti()){
@@ -44,17 +44,17 @@ public class Punti_Squadra implements CriterioOrdinamentoStrategy<Squadra>{
             }
             puntiSquadra.put(squadra, punteggi);
         }
-        // 4. Creiamo una lista dalle entry della mappa per poterle ordinare
+        //Creiamo una lista dalle entry della mappa per poterle ordinare
     List<Map.Entry<Squadra, Integer>> listaDaOrdinare = new ArrayList<>(puntiSquadra.entrySet());
 
-    // 5. Ordiniamo la lista (Decrescente: dal più grande al più piccolo)
+    //Ordiniamo la lista (Decrescente: dal più grande al più piccolo)
     listaDaOrdinare.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
 
-    // 6. USIAMO LINKEDHASHMAP per "fissare" l'ordine
+    //USIAMO LINKEDHASHMAP per "fissare" l'ordine
     Map<Squadra, Integer> PuntiSquadreOrdinato = new LinkedHashMap<>();
     
     for (Map.Entry<Squadra, Integer> entry : listaDaOrdinare) {
-        //7. Inseriamo gli elementi uno per uno, dal primo all'ultimo
+        //Inseriamo gli elementi uno per uno, dal primo all'ultimo
         PuntiSquadreOrdinato.put(entry.getKey(), entry.getValue());
     }
 

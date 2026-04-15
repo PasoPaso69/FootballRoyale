@@ -26,7 +26,7 @@ public class GiocatoreDao {
         // Usiamo il nostro HibernateService per aprire la sessione
         try (Session session = HibernateService.getInstance().getSessionFactory().openSession()) {
             
-            // Query HQL: selezioniamo solo id e nome (non l'intero oggetto)
+            // Query HQL: selezioniamo solo id e nome 
             // Hibernate restituirà una lista di array di oggetti: List<Object[]>
               String hql = "SELECT g.id, " +
              "CONCAT(g.nome, ' ', g.cognome, ' | Ruolo: ', g.ruolo, " +

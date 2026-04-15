@@ -2,11 +2,11 @@ package com.mycompany.footballroyale.domain;
 
 import jakarta.persistence.*;
 import java.util.Date;
-import org.mindrot.jbcrypt.BCrypt; // Per la gestione sicura della password
+import org.mindrot.jbcrypt.BCrypt; 
 
 @Entity
 @Table(name = "amministratori")
-@PrimaryKeyJoinColumn(name = "id_utente") // Lega l'ID alla tabella 'utenti'
+@PrimaryKeyJoinColumn(name = "id_utente") 
 public class Amministratore extends Utente {
     
 

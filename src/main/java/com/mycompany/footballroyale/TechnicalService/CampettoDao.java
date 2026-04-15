@@ -48,10 +48,10 @@ public class CampettoDao {
     public static Map<Long, String> getMappaIdNomeC() {
         Map<Long, String> mappaC = new HashMap<>();
         
-        // Usiamo il nostro HibernateService per aprire la sessione
+        // Usiamo il HibernateService per aprire la sessione
         try (Session session = HibernateService.getInstance().getSessionFactory().openSession()) {
             
-            // Query HQL: selezioniamo solo id e nome (non l'intero oggetto)
+            // Query HQL: selezioniamo solo id e nome 
             // Hibernate restituirà una lista di array di oggetti: List<Object[]>
             String hql = "SELECT c.id, c.nome FROM Campetto c WHERE c.stato = : statoC";
             

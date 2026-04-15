@@ -14,8 +14,9 @@ public class EventoGara {
 
     @Column(name = "minuto", nullable = false)
     private int minuto;
-
-    @Column(name = "tipologia", length = 50) // Gol, Ammonizione, Espulsione
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipologia") // Gol, Ammonizione, Espulsione
     private TipologiaEvento tipologia;
 
     // Relazione: Molti eventi appartengono a una sola partita

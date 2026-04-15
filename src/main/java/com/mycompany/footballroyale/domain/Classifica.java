@@ -28,8 +28,7 @@ import java.util.Map;
 @Entity
 @Table(name = "classifica")
 public class Classifica<T> {
-    
-        
+         
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Permette l'autoincremento
     @Column(name = "id_classifica")
@@ -46,10 +45,6 @@ public class Classifica<T> {
      @Column(name = "indirizzo")
     private Map<T,Integer> ListaTargetPunteggi;
          
-    //@OneToMany(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "id_prenotazione")
-    //private List<Prenotazione> prenotazioni;
-    
     public Classifica() {}
 
     public Classifica(Long id, Competizione competizione,CriterioOrdinamentoStrategy TipoClassifica) {
@@ -70,11 +65,7 @@ public class Classifica<T> {
     
     public Map<T,Integer> getClassifica(){return ListaTargetPunteggi;}
     public void setClassifica(Map<T,Integer> Punteggi){this.ListaTargetPunteggi= Punteggi;}
-    
-   //public List<Prenotazione> getPrenotazioni() {return this.prenotazioni;}
-   //public void setPrenotazioni(List<Prenotazione> p) {this.prenotazioni=p;}
-    
-    
+
    public Map<T,Integer> Ordina (List<T> targetEstratti){
        return this.TipoClassifica.Ordina(targetEstratti, competizione);
    }

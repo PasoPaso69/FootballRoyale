@@ -50,8 +50,7 @@ public class Partita {
     @JoinColumn(name = "id_prenotazione")
     private Prenotazione prenotazione;
 
-    // Relazione 1 -> * con EventoGara
-    // 'partita' deve essere il nome del campo nella classe EventoGara
+    
     @OneToMany(mappedBy = "partita", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EventoGara> eventi = new ArrayList<>();
 

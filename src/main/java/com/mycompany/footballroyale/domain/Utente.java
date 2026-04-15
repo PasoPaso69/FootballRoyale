@@ -48,7 +48,6 @@ public abstract class Utente {
         this.email = email;
     }
 
-    // Getter e Setter rimangono uguali...
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
@@ -75,10 +74,6 @@ public abstract class Utente {
     
     @Override
     public String toString() {
-        return "Id='" + id + '\'' +
-               ", nome='" + nome + '\'' +
-               ", cognome='" + cognome + '\'' +
-               ", citta di nascita='" + cittaDiNascita + '\'' +
-               ", email='" + email + '\'';
+        return  nome+ " " + cognome; 
     }
 }

@@ -7,7 +7,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 @Table(name = "giocatori")
-// Collega l'ID di questa tabella a quello della tabella 'utenti'
+
 @PrimaryKeyJoinColumn(name = "id_utente")
 public class Giocatore extends Utente {
     
@@ -21,7 +21,7 @@ public class Giocatore extends Utente {
     @Column(name = "ruolo", length = 50)
     private String ruolo;
 
-    // Relazione 1-a-1 con Foto (ogni giocatore ha la sua foto profilo)
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_foto")
     private Foto foto;
@@ -29,14 +29,11 @@ public class Giocatore extends Utente {
     @Column(name= "disponibilita")
     private Boolean disponibilita;
 
-    // Relazione molti-a-uno: molti giocatori appartengono a una squadra
-    // Il nome "squadra" deve corrispondere a quello usato in mappedBy nella classe Squadra
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_squadra")
     private Squadra squadra;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_Evento")
+    @OneToMany(mappedBy = "protagonista", fetch = FetchType.EAGER)
     private List<EventoGara> Eventi;
     
     
@@ -90,13 +87,6 @@ public class Giocatore extends Utente {
     
     @Override
 public String toString() {
-    return "Giocatore{" +
-            super.toString() + // Recupera Nome, Cognome, Email da Utente
-            
-            ", numeroMaglia=" + numeroMaglia +
-            ", ruolo='" + ruolo + '\'' +
-            ", foto=" + (foto != null ? foto.getFileName() : "Nessuna") +
-            ", squadra=" + (squadra != null ? squadra.getNome() : "Svincolato") +
-            '}';
+    return  super.toString();
 }
 }

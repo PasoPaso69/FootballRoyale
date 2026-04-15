@@ -17,18 +17,18 @@ import org.mindrot.jbcrypt.BCrypt;
 public class AutenticazioneService {
 
     public Utente login(String email, String passwordInserita) {
-        // 1. Cerchiamo l'utente tramite l'EntityManager
+        //  Cerchiamo l'utente tramite l'EntityManager
         Utente utente = EntityManager.getInstance().findByAttribute(Utente.class, "email", email);
 
         if (utente == null) {
             return null;
         }
 
-        // 2. chiamiamo getPassword() direttamente
+        //  chiamiamo getPassword() direttamente
         // Hibernate sa già se deve andare a prenderla nella tabella Admin o Giocatore.
         String hashDalDb = utente.getPassword();
 
-        // 3. Confronto con BCrypt
+        //  Confronto con BCrypt
         if (BCrypt.checkpw(passwordInserita, hashDalDb)) {
             System.out.println("Login riuscito per: " + utente.getClass().getSimpleName());
             return utente;

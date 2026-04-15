@@ -26,10 +26,10 @@ public class SquadraDao {
 public static Map<Long, String> getMappaIdNome() {
         Map<Long, String> mappa = new HashMap<>();
         
-        // Usiamo il nostro HibernateService per aprire la sessione
+        // Usiamo  HibernateService per aprire la sessione
         try (Session session = HibernateService.getInstance().getSessionFactory().openSession()) {
             
-            // Query HQL: selezioniamo solo id e nome (non l'intero oggetto)
+            // Query HQL: selezioniamo solo id e nome 
             // Hibernate restituirà una lista di array di oggetti: List<Object[]>
             String hql = "SELECT s.Id, " +
              "CONCAT(s.nome, ' | Kit: ', s.dettaglioMagliaCasa, ' (Casa) / ', s.dettaglioMagliaTrasferta, ' (Ospite)', " +

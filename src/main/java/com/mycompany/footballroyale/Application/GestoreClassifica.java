@@ -7,17 +7,11 @@ package com.mycompany.footballroyale.Application;
 import com.mycompany.footballroyale.TechnicalService.PersistentManager;
 import com.mycompany.footballroyale.domain.Classifica;
 import com.mycompany.footballroyale.domain.Competizione;
-import com.mycompany.footballroyale.domain.Enum.CriteriCalendario;
 import com.mycompany.footballroyale.domain.Enum.CriterioClassifica;
-import com.mycompany.footballroyale.domain.Enum.GiorniSettimanali;
 import com.mycompany.footballroyale.domain.Giocatore;
-import com.mycompany.footballroyale.domain.Partita;
-import com.mycompany.footballroyale.domain.Prenotazione;
 import com.mycompany.footballroyale.domain.Squadra;
-import com.mycompany.footballroyale.domain.StrategieCalendario.GenerazioneCalendarioStrategy;
 import com.mycompany.footballroyale.domain.Strategieclassifica.CriterioOrdinamentoStrategy;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +53,7 @@ public class GestoreClassifica {
             break;
             
         case "giocatore":
-            // Navigo le associazioni: Competizione -> Squadra -> Giocatore
+            // Navigo le associazioni
             List<Giocatore> tuttiGiocatori = new ArrayList<>();
             
             // Per ogni squadra della competizione, estraggo i giocatori
